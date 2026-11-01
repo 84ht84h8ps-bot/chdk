@@ -1,0 +1,132 @@
+<section class="module" id="module-3" style="background: var(--color-bg);">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">03</span>
+      <h1 class="module-title">60-Shot Astrophotography &amp; Siril Stacking</h1>
+      <p class="module-subtitle">Complete field and post-processing tutorial: shooting with fixedint.lua and processing in Siril &amp; Lightroom</p>
+    </header>
+
+    <div class="module-body">
+      <!-- Screen 1: The 500 Rule Table -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Step 1: Calculate Your Max Exposure (500 Rule)</h2>
+        <p>To prevent stars from turning into blurry streaks due to Earth&apos;s rotation, use the 500 Rule tailored to the EOS M3&apos;s 1.6&times; crop factor:</p>
+        <p style="font-family: var(--font-mono); font-weight: 600; text-align: center; margin: 12px 0;">Max_Seconds = 500 / (Focal_Length &times; 1.6)</p>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Lens / Focal Length</th>
+              <th>Calculation</th>
+              <th>Safe Shutter Speed</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>EF-M 11-22mm @ 11mm</td>
+              <td>500 / (11 &times; 1.6) = 28.4s</td>
+              <td><strong>20s to 25s</strong></td>
+            </tr>
+            <tr>
+              <td>EF-M 15-45mm @ 15mm</td>
+              <td>500 / (15 &times; 1.6) = 20.8s</td>
+              <td><strong>15s to 20s</strong></td>
+            </tr>
+            <tr>
+              <td>EF-M 22mm f/2 STM</td>
+              <td>500 / (22 &times; 1.6) = 14.2s</td>
+              <td><strong>13s to 15s</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Screen 2: 10x Live View Focus -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Step 2: Field Focusing with 10&times; Live View Zoom</h2>
+        <p>Autofocus cannot see in the dark, and lens infinity marks are physically inaccurate. Focus using this exact technique:</p>
+        <div class="pattern-cards">
+          <div class="pattern-card">
+            <div class="pattern-icon" style="background: var(--color-actor-2);">1</div>
+            <h4 class="pattern-title">Switch to MF</h4>
+            <p class="pattern-desc">Set lens to <strong>MF (Manual Focus)</strong>. Aperture wide open (e.g. f/2, f/3.5). ISO to 3200.</p>
+          </div>
+          <div class="pattern-card">
+            <div class="pattern-icon" style="background: var(--color-actor-2);">2</div>
+            <h4 class="pattern-title">Zoom 10&times; on Bright Star</h4>
+            <p class="pattern-desc">Center the brightest star in the sky on your LCD. Press the blue <strong>Magnify button</strong> on the back twice for 10&times; zoom.</p>
+          </div>
+          <div class="pattern-card">
+            <div class="pattern-icon" style="background: var(--color-actor-2);">3</div>
+            <h4 class="pattern-title">Dial Down to Tiny Pinpoint</h4>
+            <p class="pattern-desc">Turn the focus ring slowly. The star will shrink from a blurry blob into a tiny, sharp dot. When it is as small as possible, stop.</p>
+          </div>
+          <div class="pattern-card">
+            <div class="pattern-icon" style="background: var(--color-actor-2);">4</div>
+            <h4 class="pattern-title">Tape the Focus Ring</h4>
+            <p class="pattern-desc">Apply a strip of tape across the focus ring so your hands don&apos;t accidentally bump it during the 60-shot sequence.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 3: fixedint.lua setup -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Step 3: Configuring fixedint.lua in CHDK</h2>
+        <ol class="styled-list">
+          <li>Press <strong>M-Fn</strong> (&lt;ALT&gt;) &rarr; <strong>MENU</strong> &rarr; <strong>Script</strong> &rarr; <strong>Load Script from File...</strong> &rarr; choose <code>fixedint.lua</code>.</li>
+          <li>Set <strong>Shots (0=unlimited)</strong> to <code>60</code> (about 15-20 minutes total capture).</li>
+          <li>Set <strong>Interval Sec/10</strong> to <code>0</code> (captures back-to-back with zero dead-time).</li>
+          <li>Set <strong>Tv</strong> to <code>15</code> or <code>20</code> (matching your 500-rule calculation).</li>
+          <li>Set <strong>Disable Canon Dark Frame</strong> to <code>true</code> (CRUCIAL: prevents 15s freeze between shots).</li>
+          <li>Set <strong>Display</strong> to <code>Blt_Off</code> (kills LCD backlight: cuts sensor thermal noise and saves battery).</li>
+          <li>Set <strong>Start delay (ms)</strong> to <code>3000</code> (3 seconds for tripod vibrations to settle).</li>
+          <li>Set <strong>Shutdown on low battery</strong> to <code>true</code> (safely flushes SD card if battery dies).</li>
+          <li>Press <strong>MENU</strong> to close. Press the <strong>Shutter button</strong> to start the 60-shot run!</li>
+        </ol>
+      </section>
+
+      <!-- Screen 4: Siril Post Processing -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Step 4: Stacking &amp; Calibrating in Siril (macOS)</h2>
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="flow-step-num">1</div>
+            <p><strong>Set Working Directory</strong><br>Open Siril. Click the <strong>Home icon</strong> and choose your folder containing the 60 <code>.CR2</code> files.</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">2</div>
+            <p><strong>Run OSC Script</strong><br>Go to <strong>Scripts &rarr; OSC_Preprocessing_WithoutDBF</strong>. Siril aligns stars and auto-erases satellite trails with Winsorized clipping!</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">3</div>
+            <p><strong>Background Extraction</strong><br>Open <code>result.fit</code>. Go to <strong>Image Processing &rarr; Background Extraction</strong> &rarr; Generate Grid &rarr; Apply (kills light pollution gradients).</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">4</div>
+            <p><strong>Photometric Calibration</strong><br>Go to <strong>Image Processing &rarr; Photometric Color Calibration (PCC)</strong>. Type target coordinates to auto-calibrate true star colors.</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">5</div>
+            <p><strong>Asinh Stretch &amp; Export</strong><br>Go to <strong>Image Processing &rarr; Asinh Transformation</strong> to stretch faint Milky Way dust. Save as <strong>16-bit TIFF</strong>.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 5: Lightroom Polish -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Step 5: Final Creative Polish in Lightroom</h2>
+        <p>Import your 16-bit TIFF output from Siril into Lightroom:</p>
+        <ul class="styled-list">
+          <li><strong>Dehaze (+10 to +20):</strong> Strips away lingering atmospheric haze and makes the Milky Way pop.</li>
+          <li><strong>Clarity (+15) &amp; Texture (+10):</strong> Accentuates dust lanes and dark nebula structures.</li>
+          <li><strong>Noise Reduction &rarr; Luminance:</strong> Set to 0! Because you stacked 60 frames in Siril, the background noise is already mathematically eliminated.</li>
+          <li><strong>Radial Mask:</strong> Draw an oval over the galactic core, boost Exposure by +0.3 and Warmth by +5.</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</section>

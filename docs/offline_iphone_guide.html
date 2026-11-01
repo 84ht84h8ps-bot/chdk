@@ -1,0 +1,2413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canon EOS M3 CHDK Master Guide — Astro, HDR, Panorama & Focus Stacking</title>
+
+  <!-- Google Fonts: Bricolage Grotesque · DM Sans · JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400;1,9..40,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+/* =============================================================
+   CODEBASE-TO-COURSE — COMPLETE DESIGN SYSTEM
+   Copy this file verbatim into the course output directory.
+   Never regenerate it — customize only via :root overrides
+   in _base.html (accent color only).
+   ============================================================= */
+
+/* ── GOOGLE FONTS (loaded via _base.html <head>) ───────────────
+   Bricolage Grotesque · DM Sans · JetBrains Mono
+   ──────────────────────────────────────────────────────────── */
+
+/* ── DESIGN TOKENS ─────────────────────────────────────────── */
+:root {
+  /* BACKGROUNDS */
+  --color-bg:             #FAF7F2;
+  --color-bg-warm:        #F5F0E8;
+  --color-bg-code:        #1E1E2E;
+  --color-text:           #2C2A28;
+  --color-text-secondary: #6B6560;
+  --color-text-muted:     #9E9790;
+  --color-border:         #E5DFD6;
+  --color-border-light:   #EEEBE5;
+  --color-surface:        #FFFFFF;
+  --color-surface-warm:   #FDF9F3;
+
+  /* ACCENT — overridden per course in _base.html */
+  --color-accent:         #D94F30;
+  --color-accent-hover:   #C4432A;
+  --color-accent-light:   #FDEEE9;
+  --color-accent-muted:   #E8836C;
+
+  /* SEMANTIC */
+  --color-success:        #2D8B55;
+  --color-success-light:  #E8F5EE;
+  --color-error:          #C93B3B;
+  --color-error-light:    #FDE8E8;
+  --color-info:           #2A7B9B;
+  --color-info-light:     #E4F2F7;
+
+  /* ACTOR COLORS */
+  --color-actor-1:        #D94F30;
+  --color-actor-2:        #2A7B9B;
+  --color-actor-3:        #7B6DAA;
+  --color-actor-4:        #D4A843;
+  --color-actor-5:        #2D8B55;
+
+  /* FONTS */
+  --font-display: 'Bricolage Grotesque', Georgia, serif;
+  --font-body:    'DM Sans', -apple-system, sans-serif;
+  --font-mono:    'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+
+  /* TYPE SCALE */
+  --text-xs:   0.75rem;
+  --text-sm:   0.875rem;
+  --text-base: 1rem;
+  --text-lg:   1.125rem;
+  --text-xl:   1.25rem;
+  --text-2xl:  1.5rem;
+  --text-3xl:  1.875rem;
+  --text-4xl:  2.25rem;
+  --text-5xl:  3rem;
+  --text-6xl:  3.75rem;
+
+  /* LINE HEIGHTS */
+  --leading-tight:  1.15;
+  --leading-snug:   1.3;
+  --leading-normal: 1.6;
+  --leading-loose:  1.8;
+
+  /* SPACING */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-5:  1.25rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  /* LAYOUT */
+  --content-width:      800px;
+  --content-width-wide: 1000px;
+  --nav-height:         50px;
+
+  /* RADII */
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-lg:   16px;
+  --radius-full: 9999px;
+
+  /* SHADOWS (warm-tinted, never pure black) */
+  --shadow-sm: 0 1px 2px rgba(44,42,40,0.05);
+  --shadow-md: 0 4px 12px rgba(44,42,40,0.08);
+  --shadow-lg: 0 8px 24px rgba(44,42,40,0.10);
+  --shadow-xl: 0 16px 48px rgba(44,42,40,0.12);
+
+  /* EASING */
+  --ease-out:    cubic-bezier(0.16,1,0.3,1);
+  --ease-in-out: cubic-bezier(0.65,0,0.35,1);
+
+  /* DURATIONS */
+  --duration-fast:   150ms;
+  --duration-normal: 300ms;
+  --duration-slow:   500ms;
+  --stagger-delay:   120ms;
+}
+
+/* ── RESET & BASE ───────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-snap-type: y proximity;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-text);
+  line-height: var(--leading-normal);
+  background: var(--color-bg);
+  background-image: radial-gradient(
+    ellipse at 20% 50%,
+    rgba(217,79,48,0.03) 0%,
+    transparent 50%
+  );
+}
+
+/* ── SCROLLBAR ──────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+}
+
+/* ── CODE GLOBALS ───────────────────────────────────────────── */
+pre, code {
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-x: hidden;
+}
+.translation-code::-webkit-scrollbar,
+pre::-webkit-scrollbar { display: none; }
+
+/* Catppuccin-inspired syntax highlighting */
+.code-keyword  { color: #CBA6F7; }
+.code-string   { color: #A6E3A1; }
+.code-function { color: #89B4FA; }
+.code-comment  { color: #6C7086; }
+.code-number   { color: #FAB387; }
+.code-property { color: #F9E2AF; }
+.code-operator { color: #94E2D5; }
+.code-tag      { color: #F38BA8; }
+.code-attr     { color: #F9E2AF; }
+.code-value    { color: #A6E3A1; }
+.code-line     { display: block; }
+
+/* ── NAV ────────────────────────────────────────────────────── */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--nav-height);
+  z-index: 1000;
+  background: rgba(250,247,242,0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.progress-bar {
+  position: absolute;
+  bottom: 0; left: 0;
+  height: 2px;
+  width: 0%;
+  background: var(--color-accent);
+  transition: width 100ms linear;
+}
+
+.nav-inner {
+  max-width: var(--content-width-wide);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.nav-title {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 300px;
+}
+
+.nav-dots {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.nav-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  border: 2px solid var(--color-text-muted);
+  background: transparent;
+  cursor: pointer;
+  transition: all var(--duration-fast);
+  position: relative;
+}
+.nav-dot::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-bg-code);
+  color: #CDD6F4;
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  white-space: nowrap;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-sm);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--duration-fast);
+}
+.nav-dot:hover::after { opacity: 1; }
+.nav-dot.active {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-light);
+}
+.nav-dot.visited {
+  border-color: var(--color-accent-muted);
+  background: var(--color-accent-muted);
+}
+
+/* ── MODULE STRUCTURE ───────────────────────────────────────── */
+.module {
+  min-height: 100dvh;
+  min-height: 100vh;
+  scroll-snap-align: start;
+  padding: var(--space-16) var(--space-6);
+  padding-top: calc(var(--nav-height) + var(--space-12));
+}
+
+.module-content {
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+.module-header { margin-bottom: var(--space-12); }
+
+.module-number {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--text-6xl);
+  font-weight: 800;
+  color: var(--color-accent);
+  opacity: 0.15;
+  line-height: 1;
+  margin-bottom: var(--space-2);
+}
+
+.module-title {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  font-weight: 700;
+  line-height: var(--leading-tight);
+  color: var(--color-text);
+}
+
+.module-subtitle {
+  margin-top: var(--space-3);
+  font-size: var(--text-lg);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-snug);
+}
+
+.screen {
+  margin-bottom: var(--space-16);
+}
+
+.screen-heading {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--space-6);
+  line-height: var(--leading-snug);
+}
+
+p { margin-bottom: var(--space-4); }
+p:last-child { margin-bottom: 0; }
+
+/* ── SCROLL ANIMATIONS ──────────────────────────────────────── */
+.animate-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity var(--duration-slow) var(--ease-out),
+    transform var(--duration-slow) var(--ease-out);
+}
+.animate-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.stagger-children > .animate-in {
+  transition-delay: calc(var(--stagger-index, 0) * var(--stagger-delay));
+}
+
+/* ── TRANSLATION BLOCKS ─────────────────────────────────────── */
+.translation-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  margin: var(--space-8) 0;
+}
+
+.translation-code {
+  background: var(--color-bg-code);
+  color: #CDD6F4;
+  padding: var(--space-6);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: 1.7;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.translation-english {
+  background: var(--color-surface-warm);
+  padding: var(--space-6);
+  font-size: var(--text-sm);
+  line-height: 1.7;
+  border-left: 3px solid var(--color-accent);
+}
+
+.translation-label {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.5;
+}
+.translation-english .translation-label {
+  position: static;
+  display: block;
+  margin-bottom: var(--space-3);
+  color: var(--color-text-muted);
+}
+
+.translation-lines .tl {
+  padding: var(--space-1) 0;
+  border-bottom: 1px solid var(--color-border-light);
+  color: var(--color-text-secondary);
+}
+.translation-lines .tl:last-child { border-bottom: none; }
+
+/* ── QUIZ ───────────────────────────────────────────────────── */
+.quiz-container {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-md);
+  margin: var(--space-8) 0;
+}
+
+.quiz-question-block { margin-bottom: var(--space-8); }
+.quiz-question-block:last-of-type { margin-bottom: 0; }
+
+.quiz-question {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  margin-bottom: var(--space-4);
+  line-height: var(--leading-snug);
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.quiz-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  transition: border-color var(--duration-fast), background var(--duration-fast);
+}
+.quiz-option:hover:not(:disabled) { border-color: var(--color-accent-muted); }
+.quiz-option.selected { border-color: var(--color-accent); background: var(--color-accent-light); }
+.quiz-option.correct  { border-color: var(--color-success); background: var(--color-success-light); }
+.quiz-option.incorrect{ border-color: var(--color-error);   background: var(--color-error-light); }
+.quiz-option:disabled { cursor: default; }
+
+.quiz-option-radio {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--color-border);
+  flex-shrink: 0;
+  transition: all var(--duration-fast);
+}
+.quiz-option.selected .quiz-option-radio {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  box-shadow: inset 0 0 0 3px white;
+}
+.quiz-option.correct .quiz-option-radio  { border-color: var(--color-success); background: var(--color-success); box-shadow: inset 0 0 0 3px white; }
+.quiz-option.incorrect .quiz-option-radio{ border-color: var(--color-error);   background: var(--color-error);   box-shadow: inset 0 0 0 3px white; }
+
+.quiz-feedback {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height var(--duration-normal), opacity var(--duration-normal);
+  font-size: var(--text-sm);
+  border-radius: var(--radius-sm);
+}
+.quiz-feedback.show {
+  max-height: 200px;
+  opacity: 1;
+  padding: var(--space-3);
+  margin-top: var(--space-2);
+}
+.quiz-feedback.success { background: var(--color-success-light); color: var(--color-success); }
+.quiz-feedback.error   { background: var(--color-error-light);   color: var(--color-error); }
+.quiz-feedback.warning { background: var(--color-info-light);    color: var(--color-info); }
+
+.quiz-check-btn, .quiz-reset-btn {
+  margin-top: var(--space-6);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: background var(--duration-fast), transform var(--duration-fast);
+}
+.quiz-check-btn {
+  background: var(--color-accent);
+  color: white;
+  margin-right: var(--space-3);
+}
+.quiz-check-btn:hover { background: var(--color-accent-hover); transform: translateY(-1px); }
+.quiz-reset-btn {
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+}
+.quiz-reset-btn:hover { border-color: var(--color-accent-muted); }
+
+/* Scenario block */
+.scenario-block { margin-bottom: var(--space-6); }
+.scenario-context {
+  background: var(--color-info-light);
+  border-left: 3px solid var(--color-info);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+.scenario-label {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-info);
+  margin-bottom: var(--space-2);
+}
+
+/* ── DRAG AND DROP ──────────────────────────────────────────── */
+.dnd-container { margin: var(--space-8) 0; }
+.dnd-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+.dnd-chip {
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-accent);
+  color: white;
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: grab;
+  user-select: none;
+  transition: opacity var(--duration-fast), transform var(--duration-fast);
+}
+.dnd-chip:active { cursor: grabbing; transform: scale(1.05); }
+.dnd-chip.dragging { opacity: 0.4; }
+.dnd-chip.placed { opacity: 0.3; pointer-events: none; }
+
+.dnd-zones { display: flex; flex-direction: column; gap: var(--space-4); }
+.dnd-zone {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  background: var(--color-surface);
+}
+.dnd-zone-label { font-size: var(--text-sm); color: var(--color-text-secondary); margin-bottom: var(--space-3); }
+.dnd-zone-target {
+  min-height: 40px;
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  transition: border-color var(--duration-fast), background var(--duration-fast);
+}
+.dnd-zone-target.drag-over { border-color: var(--color-accent); background: var(--color-accent-light); }
+.dnd-zone-target.correct-placed { border-color: var(--color-success); background: var(--color-success-light); color: var(--color-success); font-weight: 600; }
+.dnd-zone-target.incorrect-placed{ border-color: var(--color-error); background: var(--color-error-light); }
+.touch-ghost {
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-accent);
+  color: white;
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+/* ── GROUP CHAT ─────────────────────────────────────────────── */
+.chat-window {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  margin: var(--space-8) 0;
+}
+
+.chat-messages {
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-height: 200px;
+}
+
+.chat-message {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-3);
+  animation: fadeSlideUp 0.3s var(--ease-out);
+}
+
+.chat-avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: white;
+  flex-shrink: 0;
+}
+
+.chat-bubble {
+  max-width: 75%;
+  background: var(--color-bg-warm);
+  border-radius: var(--radius-md) var(--radius-md) var(--radius-md) 4px;
+  padding: var(--space-3) var(--space-4);
+}
+
+.chat-sender {
+  display: block;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  margin-bottom: var(--space-1);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.chat-bubble p {
+  font-size: var(--text-sm);
+  margin: 0;
+  line-height: var(--leading-normal);
+}
+
+.chat-typing {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 0 var(--space-6) var(--space-4);
+}
+
+.chat-typing-dots {
+  display: flex;
+  gap: var(--space-1);
+  background: var(--color-bg-warm);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+}
+
+.typing-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--color-text-muted);
+  animation: typingBounce 1.4s infinite;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+.chat-controls {
+  padding: var(--space-4) var(--space-6);
+  border-top: 1px solid var(--color-border-light);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  background: var(--color-surface-warm);
+}
+.chat-progress {
+  margin-left: auto;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+}
+
+/* ── FLOW / DATA FLOW ANIMATION ─────────────────────────────── */
+.flow-animation {
+  position: relative;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-md);
+  margin: var(--space-8) 0;
+}
+
+.flow-actors {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+  flex-wrap: wrap;
+}
+
+.flow-actor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  transition: all var(--duration-normal) var(--ease-out);
+}
+
+.flow-actor-icon {
+  width: 56px; height: 56px;
+  border-radius: var(--radius-md);
+  background: var(--color-bg-warm);
+  border: 2px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  transition: all var(--duration-normal) var(--ease-out);
+}
+
+.flow-actor span {
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  font-family: var(--font-mono);
+  text-align: center;
+}
+
+.flow-actor.active .flow-actor-icon {
+  border-color: var(--color-accent);
+  background: var(--color-accent-light);
+  box-shadow: 0 0 0 3px var(--color-accent-light), 0 0 20px rgba(217,79,48,0.15);
+  transform: scale(1.1);
+}
+
+.flow-packet {
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  position: absolute;
+  pointer-events: none;
+  display: none;
+  box-shadow: 0 0 8px rgba(217,79,48,0.5);
+}
+
+.flow-step-label {
+  text-align: center;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  min-height: 2.5em;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-bg-warm);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-6);
+  line-height: var(--leading-normal);
+}
+
+.flow-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+.flow-progress {
+  margin-left: auto;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+}
+
+/* ── ARCHITECTURE DIAGRAM ───────────────────────────────────── */
+.arch-diagram {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-md);
+  margin: var(--space-8) 0;
+}
+.arch-zone {
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  margin-bottom: var(--space-4);
+}
+.arch-zone-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-4);
+}
+.arch-component {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  background: var(--color-surface-warm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  margin: var(--space-2);
+  transition: all var(--duration-fast);
+  font-size: var(--text-sm);
+}
+.arch-component:hover, .arch-component.active {
+  border-color: var(--color-accent);
+  background: var(--color-accent-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+.arch-icon { font-size: 1.5rem; }
+.arch-description {
+  margin-top: var(--space-4);
+  padding: var(--space-4);
+  background: var(--color-bg-warm);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  min-height: 2.5em;
+}
+
+/* ── LAYER TOGGLE ───────────────────────────────────────────── */
+.layer-demo { margin: var(--space-8) 0; }
+.layer-tabs {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+.layer-tab {
+  padding: var(--space-2) var(--space-5);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  transition: all var(--duration-fast);
+}
+.layer-tab.active {
+  background: var(--color-accent);
+  color: white;
+  border-color: var(--color-accent);
+}
+.layer-viewport {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+.layer-description {
+  margin-top: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+/* ── BUG CHALLENGE ──────────────────────────────────────────── */
+.bug-challenge {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-md);
+  margin: var(--space-8) 0;
+}
+.bug-challenge h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  margin-bottom: var(--space-4);
+}
+.bug-code {
+  background: var(--color-bg-code);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: var(--space-4);
+}
+.bug-line {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  cursor: pointer;
+  transition: background var(--duration-fast);
+}
+.bug-line:hover { background: rgba(255,255,255,0.05); }
+.bug-line.correct  { background: rgba(45,139,85,0.2); }
+.bug-line.incorrect{ background: rgba(201,59,59,0.2); }
+.line-num {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: #6C7086;
+  min-width: 1.5em;
+  text-align: right;
+  user-select: none;
+}
+.bug-line code {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: #CDD6F4;
+}
+.bug-feedback {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height var(--duration-normal), opacity var(--duration-normal);
+  font-size: var(--text-sm);
+  border-radius: var(--radius-sm);
+}
+.bug-feedback.show {
+  max-height: 200px;
+  opacity: 1;
+  padding: var(--space-3);
+}
+.bug-feedback.success { background: var(--color-success-light); color: var(--color-success); }
+.bug-feedback.error   { background: var(--color-error-light);   color: var(--color-error); }
+
+/* ── CALLOUT BOXES ──────────────────────────────────────────── */
+.callout {
+  display: flex;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  border-radius: var(--radius-md);
+  margin: var(--space-6) 0;
+  border-left: 4px solid;
+}
+.callout-accent  { background: var(--color-accent-light);  border-color: var(--color-accent); }
+.callout-info    { background: var(--color-info-light);    border-color: var(--color-info); }
+.callout-warning { background: var(--color-error-light);   border-color: var(--color-error); }
+
+.callout-icon { font-size: 1.25rem; flex-shrink: 0; margin-top: 2px; }
+.callout-title { display: block; font-weight: 700; margin-bottom: var(--space-1); }
+.callout-content p { font-size: var(--text-sm); margin: 0; color: var(--color-text-secondary); }
+
+/* ── PATTERN / FEATURE CARDS ────────────────────────────────── */
+.pattern-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-4);
+  margin: var(--space-6) 0;
+}
+.pattern-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+  border-top: 3px solid var(--color-accent);
+  transition: transform var(--duration-normal) var(--ease-out), box-shadow var(--duration-normal);
+}
+.pattern-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.pattern-icon {
+  width: 40px; height: 40px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  margin-bottom: var(--space-3);
+}
+.pattern-title {
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+}
+.pattern-desc {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-normal);
+  margin: 0;
+}
+
+/* ── FLOW DIAGRAMS (static) ─────────────────────────────────── */
+.flow-steps {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin: var(--space-6) 0;
+}
+.flow-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  text-align: center;
+}
+.flow-step-num {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: white;
+  font-family: var(--font-display);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flow-step p { font-size: var(--text-sm); color: var(--color-text-secondary); max-width: 120px; margin: 0; }
+.flow-arrow {
+  font-size: var(--text-xl);
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+/* ── BADGE / CONFIG LIST ────────────────────────────────────── */
+.badge-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: var(--space-6) 0;
+}
+.badge-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  transition: border-color var(--duration-fast);
+}
+.badge-item:hover { border-color: var(--color-accent-muted); }
+.badge-code {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  background: var(--color-bg-code);
+  color: #CBA6F7;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+}
+.badge-desc {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+/* ── GLOSSARY TOOLTIPS ──────────────────────────────────────── */
+.term {
+  border-bottom: 1.5px dashed var(--color-accent-muted);
+  cursor: pointer;
+}
+.term:hover, .term.active {
+  border-bottom-color: var(--color-accent);
+  color: var(--color-accent);
+}
+.term-tooltip {
+  position: fixed;
+  background: var(--color-bg-code);
+  color: #CDD6F4;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  font-family: var(--font-body);
+  line-height: var(--leading-normal);
+  width: max(200px, min(320px, 80vw));
+  box-shadow: var(--shadow-lg);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--duration-fast);
+  z-index: 10000;
+}
+.term-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: var(--color-bg-code);
+}
+.term-tooltip.visible { opacity: 1; }
+.term-tooltip.flip::after {
+  top: auto;
+  bottom: 100%;
+  border-top-color: transparent;
+  border-bottom-color: var(--color-bg-code);
+}
+
+/* ── VISUAL FILE TREE ───────────────────────────────────────── */
+.file-tree {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  margin: var(--space-6) 0;
+}
+.ft-folder, .ft-file {
+  padding: var(--space-2) var(--space-3);
+  border-left: 2px solid var(--color-border-light);
+  margin-left: var(--space-4);
+}
+.ft-folder > .ft-name { color: var(--color-accent); font-weight: 600; }
+.ft-folder > .ft-name::before { content: '📁 '; }
+.ft-file > .ft-name::before { content: '📄 '; }
+.ft-desc {
+  color: var(--color-text-secondary);
+  font-family: var(--font-body);
+  margin-left: var(--space-2);
+  font-size: var(--text-xs);
+}
+.ft-children { margin-left: var(--space-4); }
+
+/* ── ICON-LABEL ROWS ────────────────────────────────────────── */
+.icon-rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin: var(--space-6) 0;
+}
+.icon-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+.icon-row strong { display: block; font-weight: 600; }
+.icon-row p { margin: var(--space-1) 0 0; color: var(--color-text-secondary); font-size: var(--text-sm); }
+.icon-circle {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+/* ── NUMBERED STEP CARDS ────────────────────────────────────── */
+.step-cards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin: var(--space-6) 0;
+}
+.step-card {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--color-accent);
+  box-shadow: var(--shadow-sm);
+}
+.step-num {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: white;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  flex-shrink: 0;
+}
+.step-body strong { display: block; font-weight: 600; margin-bottom: var(--space-1); }
+.step-body p { margin: 0; color: var(--color-text-secondary); font-size: var(--text-sm); }
+
+/* ── SHARED BUTTON STYLE ────────────────────────────────────── */
+.btn {
+  padding: var(--space-2) var(--space-5);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--duration-fast);
+  color: var(--color-text-secondary);
+}
+.btn:hover { border-color: var(--color-accent-muted); color: var(--color-accent); }
+.btn-primary {
+  background: var(--color-accent);
+  color: white;
+  border-color: var(--color-accent);
+}
+.btn-primary:hover { background: var(--color-accent-hover); border-color: var(--color-accent-hover); color: white; }
+
+/* ── RESPONSIVE ─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  :root {
+    --text-4xl: 1.875rem;
+    --text-5xl: 2.25rem;
+    --text-6xl: 3rem;
+  }
+  .translation-block { grid-template-columns: 1fr; }
+  .translation-english { border-left: none; border-top: 3px solid var(--color-accent); }
+  .pattern-cards { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --text-4xl: 1.5rem;
+    --text-5xl: 1.875rem;
+    --text-6xl: 2.25rem;
+  }
+  .module { padding: var(--space-8) var(--space-4); }
+  .pattern-cards { grid-template-columns: 1fr; }
+  .flow-steps { flex-direction: column; }
+  .flow-arrow { transform: rotate(90deg); }
+  .nav-title { max-width: 140px; }
+}
+
+/* ── KEYFRAMES ──────────────────────────────────────────────── */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes typingBounce {
+  0%, 60%, 100% { transform: translateY(0); }
+  30%           { transform: translateY(-6px); }
+}
+
+@keyframes packetMove {
+  from { left: var(--packet-from-x); top: var(--packet-from-y); opacity: 0; }
+  20%  { opacity: 1; }
+  80%  { opacity: 1; }
+  to   { left: var(--packet-to-x);   top: var(--packet-to-y);   opacity: 0; }
+}
+
+</style>
+
+  <style>
+    :root {
+      --color-accent:       #2A7B9B;
+      --color-accent-hover: #1F6280;
+      --color-accent-light: #E4F2F7;
+      --color-accent-muted: #5A9DB8;
+    }
+  </style>
+
+  <script>
+/**
+ * CODEBASE-TO-COURSE — COMPLETE JS ENGINE
+ * Copy this file verbatim into the course output directory.
+ * Never regenerate it. It handles all interactivity generically.
+ *
+ * Engines included:
+ *  - Navigation & progress bar
+ *  - Scroll-triggered reveal animations
+ *  - Keyboard navigation
+ *  - Glossary tooltips
+ *  - Quiz (multiple-choice & scenario)
+ *  - Drag-and-drop matching
+ *  - Group chat animation
+ *  - Data flow / message flow animation
+ *  - Architecture diagram
+ *  - "Spot the bug" challenge
+ *  - Layer toggle
+ */
+(function () {
+  'use strict';
+
+  /* ── HELPERS ──────────────────────────────────────────────── */
+  function $(sel, ctx) { return (ctx || document).querySelector(sel); }
+  function $$(sel, ctx) { return Array.from((ctx || document).querySelectorAll(sel)); }
+
+  /* ── NAVIGATION & PROGRESS BAR ────────────────────────────── */
+  const progressBar = $('#progress-bar');
+  const navDots     = $$('.nav-dot');
+  const modules     = $$('.module');
+
+  function updateProgress() {
+    if (!progressBar) return;
+    const scrollTop    = window.scrollY;
+    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct          = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+    progressBar.style.width = pct + '%';
+    progressBar.setAttribute('aria-valuenow', Math.round(pct));
+    updateNavDots();
+  }
+
+  function updateNavDots() {
+    const scrollMid = window.scrollY + window.innerHeight / 2;
+    modules.forEach((mod, i) => {
+      const dot = navDots[i];
+      if (!dot) return;
+      const top    = mod.offsetTop;
+      const bottom = top + mod.offsetHeight;
+      if (scrollMid >= top && scrollMid < bottom) {
+        dot.classList.add('active');
+        dot.classList.remove('visited');
+      } else if (window.scrollY + window.innerHeight > top) {
+        dot.classList.remove('active');
+        dot.classList.add('visited');
+      } else {
+        dot.classList.remove('active', 'visited');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', () => requestAnimationFrame(updateProgress), { passive: true });
+  updateProgress();
+
+  // Nav dot click → scroll to module
+  navDots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      const target = $('#' + dot.dataset.target);
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  /* ── KEYBOARD NAVIGATION ───────────────────────────────────── */
+  function currentModuleIndex() {
+    const scrollMid = window.scrollY + window.innerHeight / 2;
+    for (let i = 0; i < modules.length; i++) {
+      const top    = modules[i].offsetTop;
+      const bottom = top + modules[i].offsetHeight;
+      if (scrollMid >= top && scrollMid < bottom) return i;
+    }
+    return 0;
+  }
+
+  document.addEventListener('keydown', e => {
+    if (['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) return;
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+      const next = modules[currentModuleIndex() + 1];
+      if (next) { next.scrollIntoView({ behavior: 'smooth' }); e.preventDefault(); }
+    }
+    if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+      const prev = modules[currentModuleIndex() - 1];
+      if (prev) { prev.scrollIntoView({ behavior: 'smooth' }); e.preventDefault(); }
+    }
+  });
+
+  /* ── SCROLL-TRIGGERED REVEAL ───────────────────────────────── */
+  const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+
+  $$('.animate-in').forEach(el => revealObserver.observe(el));
+
+  // Stagger children
+  $$('.stagger-children').forEach(parent => {
+    Array.from(parent.children).forEach((child, i) => {
+      child.style.setProperty('--stagger-index', i);
+    });
+  });
+
+  /* ── GLOSSARY TOOLTIPS ─────────────────────────────────────── */
+  let activeTooltip = null;
+
+  function positionTooltip(term, tip) {
+    const rect     = term.getBoundingClientRect();
+    const tipWidth = Math.min(320, Math.max(200, window.innerWidth * 0.8));
+    let left = rect.left + rect.width / 2 - tipWidth / 2;
+    left = Math.max(8, Math.min(left, window.innerWidth - tipWidth - 8));
+    tip.style.left  = left + 'px';
+    tip.style.width = tipWidth + 'px';
+    document.body.appendChild(tip);
+    const tipHeight = tip.offsetHeight;
+    if (rect.top - tipHeight - 12 < 0) {
+      tip.style.top = (rect.bottom + 8) + 'px';
+      tip.classList.add('flip');
+    } else {
+      tip.style.top = (rect.top - tipHeight - 8) + 'px';
+      tip.classList.remove('flip');
+    }
+  }
+
+  function showTooltip(term, tip) {
+    if (activeTooltip && activeTooltip !== tip) {
+      activeTooltip.classList.remove('visible');
+      activeTooltip.remove();
+    }
+    positionTooltip(term, tip);
+    requestAnimationFrame(() => tip.classList.add('visible'));
+    activeTooltip = tip;
+  }
+
+  function hideTooltip(tip) {
+    tip.classList.remove('visible');
+    setTimeout(() => { if (!tip.classList.contains('visible')) tip.remove(); }, 150);
+    if (activeTooltip === tip) activeTooltip = null;
+  }
+
+  $$('.term').forEach(term => {
+    const tip = document.createElement('span');
+    tip.className = 'term-tooltip';
+    tip.textContent = term.dataset.definition;
+
+    term.addEventListener('mouseenter', () => showTooltip(term, tip));
+    term.addEventListener('mouseleave', () => hideTooltip(tip));
+    term.addEventListener('click', e => {
+      e.stopPropagation();
+      tip.classList.contains('visible') ? hideTooltip(tip) : showTooltip(term, tip);
+    });
+  });
+
+  document.addEventListener('click', () => {
+    if (activeTooltip) { activeTooltip.classList.remove('visible'); activeTooltip.remove(); activeTooltip = null; }
+  });
+
+  /* ── QUIZ ENGINE ───────────────────────────────────────────── */
+  window.selectOption = function (btn) {
+    const block = btn.closest('.quiz-question-block');
+    $$('.quiz-option', block).forEach(o => o.classList.remove('selected'));
+    btn.classList.add('selected');
+  };
+
+  window.checkQuiz = function (containerId) {
+    const container = $('#' + containerId);
+    if (!container) return;
+    $$('.quiz-question-block', container).forEach(q => {
+      const selected  = $('.quiz-option.selected', q);
+      const feedback  = $('.quiz-feedback', q);
+      const correct   = q.dataset.correct;
+      const rightExp  = q.dataset.explanationRight  || '';
+      const wrongExp  = q.dataset.explanationWrong  || '';
+
+      if (!selected) {
+        feedback.textContent = 'Pick an answer first!';
+        feedback.className = 'quiz-feedback show warning';
+        return;
+      }
+      $$('.quiz-option', q).forEach(o => o.disabled = true);
+
+      if (selected.dataset.value === correct) {
+        selected.classList.add('correct');
+        feedback.innerHTML = '<strong>Exactly!</strong> ' + rightExp;
+        feedback.className = 'quiz-feedback show success';
+      } else {
+        selected.classList.add('incorrect');
+        const correctBtn = $(`.quiz-option[data-value="${correct}"]`, q);
+        if (correctBtn) correctBtn.classList.add('correct');
+        feedback.innerHTML = '<strong>Not quite.</strong> ' + wrongExp;
+        feedback.className = 'quiz-feedback show error';
+      }
+    });
+  };
+
+  window.resetQuiz = function (containerId) {
+    const container = $('#' + containerId);
+    if (!container) return;
+    $$('.quiz-option', container).forEach(o => {
+      o.classList.remove('selected', 'correct', 'incorrect');
+      o.disabled = false;
+    });
+    $$('.quiz-feedback', container).forEach(f => { f.className = 'quiz-feedback'; f.textContent = ''; });
+  };
+
+  /* ── DRAG-AND-DROP ENGINE ──────────────────────────────────── */
+  function initDnD(containerEl) {
+    if (!containerEl) return;
+    const chips = $$('.dnd-chip', containerEl);
+    const zones = $$('.dnd-zone', containerEl);
+
+    // Mouse (HTML5 Drag API)
+    chips.forEach(chip => {
+      chip.addEventListener('dragstart', e => {
+        e.dataTransfer.setData('text/plain', chip.dataset.answer);
+        chip.classList.add('dragging');
+      });
+      chip.addEventListener('dragend', () => chip.classList.remove('dragging'));
+    });
+
+    zones.forEach(zone => {
+      const target = $('.dnd-zone-target', zone);
+      if (!target) return;
+      target.addEventListener('dragover',  e => { e.preventDefault(); target.classList.add('drag-over'); });
+      target.addEventListener('dragleave', ()  => target.classList.remove('drag-over'));
+      target.addEventListener('drop', e => {
+        e.preventDefault();
+        target.classList.remove('drag-over');
+        const answer = e.dataTransfer.getData('text/plain');
+        const chip   = $(`.dnd-chip[data-answer="${answer}"]`, containerEl);
+        if (!chip) return;
+        target.textContent    = chip.textContent;
+        target.dataset.placed = answer;
+        chip.classList.add('placed');
+      });
+    });
+
+    // Touch
+    chips.forEach(chip => {
+      chip.addEventListener('touchstart', e => {
+        e.preventDefault();
+        const touch = e.touches[0];
+        const ghost = chip.cloneNode(true);
+        ghost.classList.add('touch-ghost');
+        ghost.style.cssText = `position:fixed;z-index:9999;pointer-events:none;left:${touch.clientX - 40}px;top:${touch.clientY - 20}px;`;
+        document.body.appendChild(ghost);
+        chip._ghost  = ghost;
+        chip._answer = chip.dataset.answer;
+      }, { passive: false });
+
+      chip.addEventListener('touchmove', e => {
+        e.preventDefault();
+        const touch = e.touches[0];
+        if (chip._ghost) {
+          chip._ghost.style.left = (touch.clientX - 40) + 'px';
+          chip._ghost.style.top  = (touch.clientY - 20) + 'px';
+        }
+        zones.forEach(z => { const t = $('.dnd-zone-target', z); if (t) t.classList.remove('drag-over'); });
+        const el = document.elementFromPoint(touch.clientX, touch.clientY);
+        const zt = el && el.closest('.dnd-zone-target');
+        if (zt) zt.classList.add('drag-over');
+      }, { passive: false });
+
+      chip.addEventListener('touchend', e => {
+        if (chip._ghost) { chip._ghost.remove(); chip._ghost = null; }
+        const touch = e.changedTouches[0];
+        const el    = document.elementFromPoint(touch.clientX, touch.clientY);
+        const zt    = el && el.closest('.dnd-zone-target');
+        if (zt) {
+          zt.textContent    = chip.textContent;
+          zt.dataset.placed = chip._answer;
+          chip.classList.add('placed');
+        }
+        zones.forEach(z => { const t = $('.dnd-zone-target', z); if (t) t.classList.remove('drag-over'); });
+      });
+    });
+  }
+
+  window.checkDnD = function (containerId) {
+    const container = $('#' + containerId);
+    if (!container) return;
+    $$('.dnd-zone', container).forEach(zone => {
+      const target  = $('.dnd-zone-target', zone);
+      if (!target || !target.dataset.placed) return;
+      if (target.dataset.placed === zone.dataset.correct) {
+        target.classList.add('correct-placed');
+      } else {
+        target.classList.add('incorrect-placed');
+      }
+    });
+  };
+
+  window.resetDnD = function (containerId) {
+    const container = $('#' + containerId);
+    if (!container) return;
+    $$('.dnd-zone-target', container).forEach(t => {
+      t.textContent = 'Drop here';
+      delete t.dataset.placed;
+      t.classList.remove('correct-placed', 'incorrect-placed');
+    });
+    $$('.dnd-chip', container).forEach(c => c.classList.remove('placed', 'dragging'));
+  };
+
+  // Auto-init all dnd containers
+  $$('.dnd-container').forEach(el => initDnD(el));
+
+  /* ── GROUP CHAT ENGINE ─────────────────────────────────────── */
+  function initChat(containerEl) {
+    if (!containerEl) return;
+    const messages    = $$('.chat-message', containerEl);
+    const typingEl    = $('.chat-typing', containerEl);
+    const typingAvEl  = $('#' + containerEl.id + '-typing-avatar') || $('.chat-avatar', typingEl);
+    const progressEl  = $('.chat-progress', containerEl);
+    let index = 0;
+
+    // Build actor map from messages
+    const actors = {};
+    messages.forEach(msg => {
+      const sender = msg.dataset.sender;
+      const avatar = $('.chat-avatar', msg);
+      if (avatar && !actors[sender]) {
+        actors[sender] = { initial: avatar.textContent.trim(), style: avatar.style.background };
+      }
+    });
+
+    function updateProgress() {
+      if (progressEl) progressEl.textContent = index + ' / ' + messages.length + ' messages';
+    }
+
+    function showNext() {
+      if (index >= messages.length) return;
+      const msg    = messages[index];
+      const sender = msg.dataset.sender;
+
+      if (typingEl && actors[sender]) {
+        if (typingAvEl) {
+          typingAvEl.textContent       = actors[sender].initial;
+          typingAvEl.style.background  = actors[sender].style;
+        }
+        typingEl.style.display = 'flex';
+      }
+
+      setTimeout(() => {
+        if (typingEl) typingEl.style.display = 'none';
+        msg.style.display = 'flex';
+        msg.style.animation = 'fadeSlideUp 0.3s var(--ease-out)';
+        index++;
+        updateProgress();
+      }, 800);
+    }
+
+    function showAll() {
+      const iv = setInterval(() => {
+        if (index >= messages.length) { clearInterval(iv); return; }
+        showNext();
+      }, 1200);
+    }
+
+    function reset() {
+      index = 0;
+      messages.forEach(m => { m.style.display = 'none'; m.style.animation = ''; });
+      if (typingEl) typingEl.style.display = 'none';
+      updateProgress();
+    }
+
+    // Bind controls
+    const nextBtn  = $('.chat-next-btn',  containerEl);
+    const allBtn   = $('.chat-all-btn',   containerEl);
+    const resetBtn = $('.chat-reset-btn', containerEl);
+    if (nextBtn)  nextBtn.addEventListener('click',  showNext);
+    if (allBtn)   allBtn.addEventListener('click',   showAll);
+    if (resetBtn) resetBtn.addEventListener('click', reset);
+
+    updateProgress();
+  }
+
+  $$('.chat-window').forEach(el => initChat(el));
+
+  /* ── FLOW ANIMATION ENGINE ─────────────────────────────────── */
+  function initFlow(containerEl) {
+    if (!containerEl) return;
+    const stepsData  = JSON.parse(containerEl.dataset.steps || '[]');
+    const labelEl    = $('.flow-step-label', containerEl);
+    const progressEl = $('.flow-progress',   containerEl);
+    const packet     = $('.flow-packet',     containerEl);
+    let step = 0;
+
+    function updateProgress() {
+      if (progressEl) progressEl.textContent = 'Step ' + step + ' / ' + stepsData.length;
+    }
+
+    function animatePacket(fromId, toId) {
+      if (!packet) return;
+      const fromEl = $('#' + fromId);
+      const toEl   = $('#' + toId);
+      if (!fromEl || !toEl) return;
+      const fromR = fromEl.getBoundingClientRect();
+      const toR   = toEl.getBoundingClientRect();
+      const contR = containerEl.getBoundingClientRect();
+      const fx = fromR.left + fromR.width / 2  - contR.left;
+      const fy = fromR.top  + fromR.height / 2 - contR.top;
+      const tx = toR.left   + toR.width / 2    - contR.left;
+      const ty = toR.top    + toR.height / 2   - contR.top;
+      packet.style.setProperty('--packet-from-x', fx + 'px');
+      packet.style.setProperty('--packet-from-y', fy + 'px');
+      packet.style.setProperty('--packet-to-x',   tx + 'px');
+      packet.style.setProperty('--packet-to-y',   ty + 'px');
+      packet.style.display    = 'block';
+      packet.style.animation  = 'none';
+      packet.offsetHeight; // reflow
+      packet.style.animation  = 'packetMove 0.8s var(--ease-in-out) forwards';
+      setTimeout(() => { packet.style.display = 'none'; }, 850);
+    }
+
+    function next() {
+      if (step >= stepsData.length) return;
+      const s = stepsData[step];
+      $$('.flow-actor', containerEl).forEach(a => a.classList.remove('active'));
+      if (s.highlight) {
+        const hEl = $('#' + s.highlight, containerEl) || $('#flow-' + s.highlight);
+        if (hEl) hEl.classList.add('active');
+      }
+      if (s.packet && s.from && s.to) animatePacket('flow-' + s.from, 'flow-' + s.to);
+      if (labelEl) labelEl.textContent = s.label || '';
+      step++;
+      updateProgress();
+    }
+
+    function reset() {
+      step = 0;
+      $$('.flow-actor', containerEl).forEach(a => a.classList.remove('active'));
+      if (labelEl) labelEl.textContent = 'Click "Next Step" to begin';
+      if (packet)  packet.style.display = 'none';
+      updateProgress();
+    }
+
+    const nextBtn  = $('.flow-next-btn',  containerEl);
+    const resetBtn = $('.flow-reset-btn', containerEl);
+    if (nextBtn)  nextBtn.addEventListener('click',  next);
+    if (resetBtn) resetBtn.addEventListener('click', reset);
+
+    updateProgress();
+  }
+
+  $$('.flow-animation').forEach(el => initFlow(el));
+
+  /* ── ARCHITECTURE DIAGRAM ──────────────────────────────────── */
+  $$('.arch-component').forEach(comp => {
+    comp.addEventListener('click', function () {
+      const diagram = this.closest('.arch-diagram');
+      $$('.arch-component', diagram).forEach(c => c.classList.remove('active'));
+      this.classList.add('active');
+      const descEl = $('.arch-description', diagram);
+      if (descEl) descEl.textContent = this.dataset.desc || '';
+    });
+  });
+
+  /* ── BUG CHALLENGE ─────────────────────────────────────────── */
+  window.checkBugLine = function (el, isCorrect) {
+    const challenge = el.closest('.bug-challenge');
+    const feedback  = $('.bug-feedback', challenge);
+    if (isCorrect) {
+      el.classList.add('correct');
+      feedback.innerHTML  = '<strong>Found it!</strong> ' + (el.dataset.explanation || '');
+      feedback.className  = 'bug-feedback show success';
+      $$('.bug-line', challenge).forEach(l => l.style.pointerEvents = 'none');
+    } else {
+      el.classList.add('incorrect');
+      feedback.innerHTML  = (el.dataset.hint || 'Not this line — keep looking...');
+      feedback.className  = 'bug-feedback show error';
+      setTimeout(() => {
+        el.classList.remove('incorrect');
+        feedback.className = 'bug-feedback';
+      }, 1800);
+    }
+  };
+
+  /* ── LAYER TOGGLE ──────────────────────────────────────────── */
+  window.showLayer = function (layerId, btn) {
+    const demo = btn ? btn.closest('.layer-demo') : null;
+    if (!demo) return;
+    $$('.layer', demo).forEach(l => l.style.display = 'none');
+    $$('.layer-tab', demo).forEach(t => t.classList.remove('active'));
+    const layer = $('#' + layerId);
+    if (layer) layer.style.display = 'block';
+    btn.classList.add('active');
+  };
+
+})();
+
+</script>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="progress-bar" id="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+    <div class="nav-inner">
+      <span class="nav-title">Canon EOS M3 + CHDK Master Guide</span>
+      <div class="nav-dots" id="nav-dots" role="tablist">
+        <button class="nav-dot" data-target="module-1" data-tooltip="1. M3 & CHDK Setup" role="tab" aria-label="Module 1: M3 & CHDK Setup"></button>
+        <button class="nav-dot" data-target="module-2" data-tooltip="2. 5-Stop HDR Bracketing" role="tab" aria-label="Module 2: 5-Stop HDR Bracketing"></button>
+        <button class="nav-dot" data-target="module-3" data-tooltip="3. 60-Shot Astro & Siril" role="tab" aria-label="Module 3: 60-Shot Astro & Siril"></button>
+        <button class="nav-dot" data-target="module-4" data-tooltip="4. Panorama & Lightroom" role="tab" aria-label="Module 4: Panorama & Lightroom"></button>
+        <button class="nav-dot" data-target="module-5" data-tooltip="5. Masterclass: HDR Panorama" role="tab" aria-label="Module 5: Masterclass: HDR Panorama"></button>
+        <button class="nav-dot" data-target="module-6" data-tooltip="6. Infinite Focus Stacking" role="tab" aria-label="Module 6: Infinite Focus Stacking"></button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+<section class="module" id="module-1" style="background: var(--color-bg);">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">01</span>
+      <h1 class="module-title">Camera Prep &amp; CHDK Quickstart</h1>
+      <p class="module-subtitle">Complete physical checklist and navigation fundamentals before running any script</p>
+    </header>
+
+    <div class="module-body">
+      <!-- Screen 1: Mandatory Camera Physical Settings -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Step 1: Mandatory Canon Physical &amp; Menu Setup</h2>
+        <p>Before launching CHDK or mounting on your tripod, configure these exact settings in the native Canon menu. If these are not configured, auto-algorithms will fight the scripts:</p>
+
+        <div class="pattern-cards">
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-1);">
+            <div class="pattern-icon" style="background: var(--color-actor-1);">🛑</div>
+            <h4 class="pattern-title">1. Lens IS &rarr; OFF</h4>
+            <p class="pattern-desc">Turn off Image Stabilization using the physical lens switch or in Canon Menu &rarr; Shoot Tab 1 &rarr; IS Settings &rarr; Off. On a tripod, IS sensors create feedback loops that cause micro-blur.</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-2);">
+            <div class="pattern-icon" style="background: var(--color-actor-2);">🎨</div>
+            <h4 class="pattern-title">2. Lock White Balance</h4>
+            <p class="pattern-desc">Set White Balance to <strong>Daylight (5200K)</strong> for daytime/panoramas, or <strong>Tungsten/4000K</strong> for astrophotography. Never leave on AWB (Auto), or colors will shift between frames.</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-3);">
+            <div class="pattern-icon" style="background: var(--color-actor-3);">⚡</div>
+            <h4 class="pattern-title">3. Image Quality &rarr; RAW</h4>
+            <p class="pattern-desc">In native Canon Menu &rarr; Shoot Tab 1 &rarr; Image Quality, select <strong>RAW</strong>. This produces native 14-bit <code>.CR2</code> files with full sensor dynamic range.</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-4);">
+            <div class="pattern-icon" style="background: var(--color-actor-4);">⏱️</div>
+            <h4 class="pattern-title">4. Image Review &rarr; OFF</h4>
+            <p class="pattern-desc">Canon Menu &rarr; Shoot Tab 1 &rarr; Image Review &rarr; <strong>Off</strong>. Disabling post-shot LCD playback prevents the camera from freezing between fast interval shots.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 2: CHDK Navigation on EOS M3 -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Step 2: Operating CHDK on the EOS M3</h2>
+        <p>CHDK runs as a transparent overlay in camera RAM. Learn the 3 key button actions:</p>
+
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="flow-step-num">M-Fn</div>
+            <p><strong>Toggle &lt;ALT&gt; Mode</strong><br>Press the M-Fn button (next to shutter). <code>&lt;ALT&gt;</code> appears at screen bottom.</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">MENU</div>
+            <p><strong>Open CHDK Menu</strong><br>While &lt;ALT&gt; is showing, press MENU. Navigate with the D-pad and press SET to select.</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">SHUTTER</div>
+            <p><strong>Run / Stop Script</strong><br>Exit menu (press MENU). While &lt;ALT&gt; is showing, press Shutter to start. Press again to abort.</p>
+          </div>
+        </div>
+
+        <div class="callout callout-accent">
+          <div class="callout-icon">💡</div>
+          <div class="callout-content">
+            <strong class="callout-title">One-Time Prerequisite: Enable Lua Native Calls</strong>
+            <p>In CHDK Menu &rarr; <strong>Miscellaneous stuff</strong> &rarr; scroll to <strong>Enable Lua Native Calls</strong> &rarr; press SET to check <code>[ * ]</code>. This is required for our scripts to control EF-M electronic lens motors.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 3: How to Load Any Script -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Step 3: Loading Any Script in 10 Seconds</h2>
+        <ol class="styled-list">
+          <li>Press <strong>M-Fn</strong> so <code>&lt;ALT&gt;</code> appears at the bottom of your LCD.</li>
+          <li>Press <strong>MENU</strong> to open the CHDK menu.</li>
+          <li>Scroll to <strong>Script</strong> and press <strong>SET</strong>.</li>
+          <li>Select <strong>Load Script from File...</strong> &rarr; press <strong>SET</strong>.</li>
+          <li>Choose your script (e.g. <code>fixedint.lua</code>, <code>bracket5_opt.lua</code>, <code>pano_helper.lua</code>, <code>focus_stack.lua</code>) and press <strong>SET</strong>.</li>
+          <li>Adjust the script parameters right on screen using Left/Right on the dial.</li>
+          <li>Press <strong>MENU</strong> to close. With <code>&lt;ALT&gt;</code> still displayed, press the <strong>Shutter button</strong> to start shooting!</li>
+        </ol>
+      </section>
+    </div>
+  </div>
+</section>
+<section class="module" id="module-2" style="background: var(--color-bg-warm);">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">02</span>
+      <h1 class="module-title">5-Stop HDR Bracketing &amp; Lightroom Merge</h1>
+      <p class="module-subtitle">Complete field and editing tutorial: shooting &minus;2 to +2 EV with bracket5_opt.lua and developing 32-bit DNGs</p>
+    </header>
+
+    <div class="module-body">
+      <!-- Screen 1: When to use -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">When &amp; Why to Use 5-Stop Bracketing</h2>
+        <p>Use <strong>5-stop bracketing</strong> whenever your scene has extreme contrast that exceeds the sensor&apos;s 11.8-stop limit:</p>
+        <ul class="styled-list">
+          <li>Sunsets or sunrises with dark landscape foregrounds.</li>
+          <li>Looking from inside a dark room, cave, or archway out into bright sunlight.</li>
+          <li>High-contrast mountain scenes with bright snow and deep shadow ravines.</li>
+        </ul>
+        <p>The script fires 5 consecutive RAW images spaced 1 stop apart: <strong>&minus;2 EV, &minus;1 EV, 0 EV, +1 EV, +2 EV</strong>. Shutter speed changes automatically while aperture stays strictly locked at f/8.</p>
+      </section>
+
+      <!-- Screen 2: Field Setup -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Field Tutorial: Shooting the 5-Stop Bracket</h2>
+        
+        <div class="pattern-cards">
+          <div class="pattern-card">
+            <div class="pattern-icon" style="background: var(--color-accent);">1</div>
+            <h4 class="pattern-title">Camera Mode &amp; Aperture</h4>
+            <p class="pattern-desc">Set mode dial to <strong>Av (Aperture Priority)</strong> or <strong>M (Manual)</strong>. Set aperture to <strong>f/8</strong> (peak lens sharpness) and ISO to <strong>100</strong>.</p>
+          </div>
+          <div class="pattern-card">
+            <div class="pattern-icon" style="background: var(--color-accent);">2</div>
+            <h4 class="pattern-title">Frame &amp; Half-Press Meter</h4>
+            <p class="pattern-desc">Frame your shot on the tripod. Half-press the shutter once so the camera meters the scene&apos;s baseline (0 EV) shutter speed.</p>
+          </div>
+          <div class="pattern-card">
+            <div class="pattern-icon" style="background: var(--color-accent);">3</div>
+            <h4 class="pattern-title">Load bracket5_opt.lua</h4>
+            <p class="pattern-desc">Press <strong>M-Fn</strong> (&lt;ALT&gt;) &rarr; <strong>MENU</strong> &rarr; <strong>Script</strong> &rarr; <strong>Load Script from File...</strong> &rarr; select <code>bracket5_opt.lua</code>.</p>
+          </div>
+          <div class="pattern-card">
+            <div class="pattern-icon" style="background: var(--color-accent);">4</div>
+            <h4 class="pattern-title">Configure Parameters</h4>
+            <p class="pattern-desc">Verify settings: <code>Step size (EV) = 1</code>, <code>Timer Delay = 2</code> (seconds), <code>Target ISO = 100</code>.</p>
+          </div>
+          <div class="pattern-card">
+            <div class="pattern-icon" style="background: var(--color-accent);">5</div>
+            <h4 class="pattern-title">Press Shutter &amp; Hands Off!</h4>
+            <p class="pattern-desc">Press MENU to close. Press the Shutter button. The camera waits 2s to kill vibration, locks autofocus, fires all 5 frames, and restores your settings.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 3: Lightroom Post-Processing -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Computer Tutorial: Merging into 32-bit HDR in Lightroom</h2>
+        <p>Follow these exact steps inside Adobe Lightroom Classic or Lightroom CC:</p>
+
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="flow-step-num">1</div>
+            <p><strong>Import RAW Files</strong><br>Import the 5 <code>.CR2</code> files from your SD card into Lightroom.</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">2</div>
+            <p><strong>Select All 5</strong><br>In Library Grid (<code>G</code>), Shift-click the 5 bracketed frames to highlight them.</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">3</div>
+            <p><strong>Press Cmd + H</strong><br>Right-click &rarr; <strong>Photo Merge &rarr; HDR</strong> (Shortcut: <code>Cmd + H</code> on Mac / <code>Ctrl + H</code> on Win).</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">4</div>
+            <p><strong>Configure Dialog</strong><br>Check <em>Auto Align</em>. Set <em>Deghost</em> to <strong>Low</strong> (or None). Check <em>Auto Settings</em>.</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">5</div>
+            <p><strong>Merge 32-Bit DNG</strong><br>Click <strong>Merge</strong>. Lightroom creates a new <code>[filename]-HDR.dng</code> file.</p>
+          </div>
+        </div>
+
+        <div class="callout callout-accent">
+          <div class="callout-icon">🎛️</div>
+          <div class="callout-content">
+            <strong class="callout-title">Developing the 32-Bit DNG in Lightroom Develop Module (D)</strong>
+            <p>Because the output is a true 32-bit raw file, the Develop sliders give you unmatched recovery latitude:</p>
+            <ul class="styled-list">
+              <li><strong>Highlights (&minus;50 to &minus;80):</strong> Brings back full sky gradient, sun flare detail, and cloud texture without muddy grays.</li>
+              <li><strong>Shadows (+30 to +60):</strong> Pulls clean foreground shadow details out of the darks with zero chrominance noise.</li>
+              <li><strong>White/Black Clipping:</strong> Hold the <code>Option</code> key (Mac) / <code>Alt</code> key (Win) while dragging the Whites and Blacks sliders to set clean pure-white and pure-black endpoints.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 4: Field Gotchas -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Field Troubleshooting &amp; Pro-Tips</h2>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Issue</th>
+              <th>Cause</th>
+              <th>Solution</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Lightroom shows ghosting blur</td>
+              <td>Wind blew foliage between shots</td>
+              <td>In the HDR Merge dialog, set Deghosting to <strong>Medium</strong> or <strong>High</strong>.</td>
+            </tr>
+            <tr>
+              <td>Script stops after frame 1</td>
+              <td>Image Review is active</td>
+              <td>Disable Image Review in Canon Menu &rarr; Shoot Tab 1.</td>
+            </tr>
+            <tr>
+              <td>Exposure steps look uneven</td>
+              <td>Auto-ISO fought the script</td>
+              <td>Set ISO manually in Canon mode or verify <code>Target ISO = 100</code> in script.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </div>
+</section>
+<section class="module" id="module-3" style="background: var(--color-bg);">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">03</span>
+      <h1 class="module-title">60-Shot Astrophotography &amp; Siril Stacking</h1>
+      <p class="module-subtitle">Complete field and post-processing tutorial: shooting with fixedint.lua and processing in Siril &amp; Lightroom</p>
+    </header>
+
+    <div class="module-body">
+      <!-- Screen 1: The 500 Rule Table -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Step 1: Calculate Your Max Exposure (500 Rule)</h2>
+        <p>To prevent stars from turning into blurry streaks due to Earth&apos;s rotation, use the 500 Rule tailored to the EOS M3&apos;s 1.6&times; crop factor:</p>
+        <p style="font-family: var(--font-mono); font-weight: 600; text-align: center; margin: 12px 0;">Max_Seconds = 500 / (Focal_Length &times; 1.6)</p>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Lens / Focal Length</th>
+              <th>Calculation</th>
+              <th>Safe Shutter Speed</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>EF-M 11-22mm @ 11mm</td>
+              <td>500 / (11 &times; 1.6) = 28.4s</td>
+              <td><strong>20s to 25s</strong></td>
+            </tr>
+            <tr>
+              <td>EF-M 15-45mm @ 15mm</td>
+              <td>500 / (15 &times; 1.6) = 20.8s</td>
+              <td><strong>15s to 20s</strong></td>
+            </tr>
+            <tr>
+              <td>EF-M 22mm f/2 STM</td>
+              <td>500 / (22 &times; 1.6) = 14.2s</td>
+              <td><strong>13s to 15s</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Screen 2: 10x Live View Focus -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Step 2: Field Focusing with 10&times; Live View Zoom</h2>
+        <p>Autofocus cannot see in the dark, and lens infinity marks are physically inaccurate. Focus using this exact technique:</p>
+        <div class="pattern-cards">
+          <div class="pattern-card">
+            <div class="pattern-icon" style="background: var(--color-actor-2);">1</div>
+            <h4 class="pattern-title">Switch to MF</h4>
+            <p class="pattern-desc">Set lens to <strong>MF (Manual Focus)</strong>. Aperture wide open (e.g. f/2, f/3.5). ISO to 3200.</p>
+          </div>
+          <div class="pattern-card">
+            <div class="pattern-icon" style="background: var(--color-actor-2);">2</div>
+            <h4 class="pattern-title">Zoom 10&times; on Bright Star</h4>
+            <p class="pattern-desc">Center the brightest star in the sky on your LCD. Press the blue <strong>Magnify button</strong> on the back twice for 10&times; zoom.</p>
+          </div>
+          <div class="pattern-card">
+            <div class="pattern-icon" style="background: var(--color-actor-2);">3</div>
+            <h4 class="pattern-title">Dial Down to Tiny Pinpoint</h4>
+            <p class="pattern-desc">Turn the focus ring slowly. The star will shrink from a blurry blob into a tiny, sharp dot. When it is as small as possible, stop.</p>
+          </div>
+          <div class="pattern-card">
+            <div class="pattern-icon" style="background: var(--color-actor-2);">4</div>
+            <h4 class="pattern-title">Tape the Focus Ring</h4>
+            <p class="pattern-desc">Apply a strip of tape across the focus ring so your hands don&apos;t accidentally bump it during the 60-shot sequence.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 3: fixedint.lua setup -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Step 3: Configuring fixedint.lua in CHDK</h2>
+        <ol class="styled-list">
+          <li>Press <strong>M-Fn</strong> (&lt;ALT&gt;) &rarr; <strong>MENU</strong> &rarr; <strong>Script</strong> &rarr; <strong>Load Script from File...</strong> &rarr; choose <code>fixedint.lua</code>.</li>
+          <li>Set <strong>Shots (0=unlimited)</strong> to <code>60</code> (about 15-20 minutes total capture).</li>
+          <li>Set <strong>Interval Sec/10</strong> to <code>0</code> (captures back-to-back with zero dead-time).</li>
+          <li>Set <strong>Tv</strong> to <code>15</code> or <code>20</code> (matching your 500-rule calculation).</li>
+          <li>Set <strong>Disable Canon Dark Frame</strong> to <code>true</code> (CRUCIAL: prevents 15s freeze between shots).</li>
+          <li>Set <strong>Display</strong> to <code>Blt_Off</code> (kills LCD backlight: cuts sensor thermal noise and saves battery).</li>
+          <li>Set <strong>Start delay (ms)</strong> to <code>3000</code> (3 seconds for tripod vibrations to settle).</li>
+          <li>Set <strong>Shutdown on low battery</strong> to <code>true</code> (safely flushes SD card if battery dies).</li>
+          <li>Press <strong>MENU</strong> to close. Press the <strong>Shutter button</strong> to start the 60-shot run!</li>
+        </ol>
+      </section>
+
+      <!-- Screen 4: Siril Post Processing -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Step 4: Stacking &amp; Calibrating in Siril (macOS)</h2>
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="flow-step-num">1</div>
+            <p><strong>Set Working Directory</strong><br>Open Siril. Click the <strong>Home icon</strong> and choose your folder containing the 60 <code>.CR2</code> files.</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">2</div>
+            <p><strong>Run OSC Script</strong><br>Go to <strong>Scripts &rarr; OSC_Preprocessing_WithoutDBF</strong>. Siril aligns stars and auto-erases satellite trails with Winsorized clipping!</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">3</div>
+            <p><strong>Background Extraction</strong><br>Open <code>result.fit</code>. Go to <strong>Image Processing &rarr; Background Extraction</strong> &rarr; Generate Grid &rarr; Apply (kills light pollution gradients).</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">4</div>
+            <p><strong>Photometric Calibration</strong><br>Go to <strong>Image Processing &rarr; Photometric Color Calibration (PCC)</strong>. Type target coordinates to auto-calibrate true star colors.</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">5</div>
+            <p><strong>Asinh Stretch &amp; Export</strong><br>Go to <strong>Image Processing &rarr; Asinh Transformation</strong> to stretch faint Milky Way dust. Save as <strong>16-bit TIFF</strong>.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 5: Lightroom Polish -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Step 5: Final Creative Polish in Lightroom</h2>
+        <p>Import your 16-bit TIFF output from Siril into Lightroom:</p>
+        <ul class="styled-list">
+          <li><strong>Dehaze (+10 to +20):</strong> Strips away lingering atmospheric haze and makes the Milky Way pop.</li>
+          <li><strong>Clarity (+15) &amp; Texture (+10):</strong> Accentuates dust lanes and dark nebula structures.</li>
+          <li><strong>Noise Reduction &rarr; Luminance:</strong> Set to 0! Because you stacked 60 frames in Siril, the background noise is already mathematically eliminated.</li>
+          <li><strong>Radial Mask:</strong> Draw an oval over the galactic core, boost Exposure by +0.3 and Warmth by +5.</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</section>
+<section class="module" id="module-4" style="background: var(--color-bg-warm);">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">04</span>
+      <h1 class="module-title">Panoramic Landscape &amp; Lightroom Stitching</h1>
+      <p class="module-subtitle">Step-by-step field execution with pano_helper.lua and seamless stitching in Lightroom</p>
+    </header>
+
+    <div class="module-body">
+      <!-- Screen 1: Physical Setup -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Step 1: Physical Tripod &amp; Camera Alignment</h2>
+        <div class="pattern-cards">
+          <div class="pattern-card">
+            <div class="pattern-icon" style="background: var(--color-actor-4);">📐</div>
+            <h4 class="pattern-title">Mount Vertically (Portrait)</h4>
+            <p class="pattern-desc">Mount your camera in portrait orientation using an L-bracket or tilted tripod head. Vertical frames give you <strong>6000 vertical pixels</strong> of resolution and natural landscape proportions.</p>
+          </div>
+          <div class="pattern-card">
+            <div class="pattern-icon" style="background: var(--color-actor-4);">⚖️</div>
+            <h4 class="pattern-title">Level Your Tripod Base</h4>
+            <p class="pattern-desc">Ensure your tripod head rotates on a perfectly horizontal plane. If the tripod is tilted, your panoramic sweep will curve like a banana, forcing severe cropping.</p>
+          </div>
+          <div class="pattern-card">
+            <div class="pattern-icon" style="background: var(--color-actor-4);">🎯</div>
+            <h4 class="pattern-title">Lock Camera Settings</h4>
+            <p class="pattern-desc">Dial to <strong>M (Manual)</strong> at <strong>f/8, ISO 100</strong>. White Balance set to <strong>Daylight (5200K)</strong>—never Auto White Balance!</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 2: pano_helper.lua Execution -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Step 2: Shooting with pano_helper.lua</h2>
+        <p>This script completely prevents exposure and focus shifts between panels and paces your tripod rotations with audio beeps:</p>
+
+        <ol class="styled-list">
+          <li>Aim the camera at the <strong>primary midtone region</strong> of your vista.</li>
+          <li>Press <strong>M-Fn</strong> (&lt;ALT&gt;) &rarr; <strong>MENU</strong> &rarr; <strong>Script</strong> &rarr; <strong>Load Script from File...</strong> &rarr; select <code>pano_helper.lua</code>.</li>
+          <li>Set <strong>Number of Pano Panels</strong> to <code>6</code> (or your chosen count covering your sweep with 30% overlap).</li>
+          <li>Set <strong>Pause to Rotate Tripod (sec)</strong> to <code>4</code>.</li>
+          <li>Set <strong>Bracket Each Panel?</strong> to <code>0</code> (standard single exposure).</li>
+          <li>Press <strong>MENU</strong> to close. Frame your <strong>first panel (far left)</strong> and press the <strong>Shutter button</strong>.</li>
+          <li><strong>Listen for the Beep:</strong>
+            <ul class="styled-list">
+              <li>The camera meters and locks exposure and focus, then shoots Panel 1.</li>
+              <li>You will hear an audio <strong>BEEP</strong>!</li>
+              <li>Smoothly turn your tripod head to the right by ~30% overlap during the 4-second pause.</li>
+              <li>Take your hands off the camera. Panel 2 fires automatically.</li>
+              <li>Repeat until the script double-beeps to signal the panorama is complete!</li>
+            </ul>
+          </li>
+        </ol>
+      </section>
+
+      <!-- Screen 3: Lightroom Stitching -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Step 3: Stitching the Panorama in Lightroom</h2>
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="flow-step-num">1</div>
+            <p><strong>Select Panels</strong><br>In Lightroom Library grid (<code>G</code>), select all 6 panels.</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">2</div>
+            <p><strong>Press Cmd + M</strong><br>Right-click &rarr; <strong>Photo Merge &rarr; Panorama</strong> (Shortcut: <code>Cmd + M</code>).</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">3</div>
+            <p><strong>Choose Cylindrical</strong><br>Select <strong>Cylindrical Projection</strong> (keeps the horizon straight without spherical bowing).</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">4</div>
+            <p><strong>Boundary Warp</strong><br>Drag Boundary Warp to <strong>80-90</strong> to pull edges into the corners, or check <strong>Fill Edges</strong>.</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">5</div>
+            <p><strong>Merge</strong><br>Click <strong>Merge</strong>. Lightroom creates an 80+ megapixel <code>-Pano.dng</code> RAW file!</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 4: Gotchas -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Panorama Field Gotchas &amp; Troubleshooting</h2>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Problem</th>
+              <th>Cause</th>
+              <th>Solution</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Lightroom says &ldquo;Unable to merge&rdquo;</td>
+              <td>Overlap between panels was too small (&lt;25%)</td>
+              <td>Turn tripod less between shots; ensure 30% to 40% overlap between adjacent frames.</td>
+            </tr>
+            <tr>
+              <td>Sky has vertical stripes</td>
+              <td>White Balance or Shutter changed</td>
+              <td>Always use <code>pano_helper.lua</code> and lock WB to Daylight in Canon menu.</td>
+            </tr>
+            <tr>
+              <td>Foreground objects don&apos;t align</td>
+              <td>Parallax error (camera pivoted behind lens nodal point)</td>
+              <td>Keep prominent foreground rocks at least 2 meters away when panning on a standard tripod head.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </div>
+</section>
+<section class="module" id="module-5" style="background: var(--color-bg);">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">05</span>
+      <h1 class="module-title">Masterclass: HDR Panorama on the EOS M3</h1>
+      <p class="module-subtitle">Complete step-by-step tutorial: shooting the exposure matrix with pano_helper and 1-click merging in Lightroom</p>
+    </header>
+
+    <div class="module-body">
+      <!-- Screen 1: What is an HDR Panorama -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">The Concept: The Exposure Matrix</h2>
+        <p>An <strong>HDR Panorama</strong> combines multi-exposure bracketing with panoramic stitching. When shooting into high-contrast sunsets, single-exposure panoramas blow out the sun or plunge foregrounds into black noise.</p>
+        <p>By shooting a 3-stop bracket (&minus;2 EV, 0 EV, +2 EV) at <em>every single rotation angle</em>, you capture the entire 160&deg; landscape with zero blown highlights and zero noisy shadows:</p>
+        <p style="font-family: var(--font-mono); font-weight: 600; text-align: center; margin: 12px 0;">6 Panels &times; 3 Bracketed Exposures = 18 RAW Frames Total</p>
+      </section>
+
+      <!-- Screen 2: Field Setup -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Step 1: Shooting the HDR Matrix with pano_helper.lua</h2>
+        <ol class="styled-list">
+          <li>Mount your camera vertically on your tripod. Set mode dial to <strong>M (Manual)</strong> at <strong>f/8, ISO 100</strong>.</li>
+          <li>Set White Balance to <strong>Daylight (5200K)</strong> in the Canon menu.</li>
+          <li>Press <strong>M-Fn</strong> (&lt;ALT&gt;) &rarr; <strong>MENU</strong> &rarr; <strong>Script</strong> &rarr; <strong>Load Script from File...</strong> &rarr; select <code>pano_helper.lua</code>.</li>
+          <li>Configure these exact parameters:
+            <ul class="styled-list">
+              <li><strong>Number of Pano Panels:</strong> <code>6</code></li>
+              <li><strong>Pause to Rotate Tripod (sec):</strong> <code>5</code> (gives a comfortable window to rotate smoothly)</li>
+              <li><strong>Bracket Each Panel?:</strong> Set to <code>1</code> &larr; <em>CRUCIAL: Enables HDR bracketing at each angle!</em></li>
+            </ul>
+          </li>
+          <li>Press <strong>MENU</strong> to exit. Aim at your starting frame (far left) and press the <strong>Shutter button</strong>.</li>
+          <li><strong>The Shooting Cycle:</strong>
+            <ul class="styled-list">
+              <li>The camera locks settings and fires 3 rapid bracketed shots: &minus;2 EV (sky), 0 EV (midtones), and +2 EV (shadows).</li>
+              <li>You hear a <strong>BEEP</strong>!</li>
+              <li>Smoothly rotate your tripod head to the right by ~30% overlap during the 5-second pause.</li>
+              <li>Take your hands off. The camera automatically fires the next 3 bracketed shots!</li>
+              <li>Repeat across all 6 panels until the script finishes.</li>
+            </ul>
+          </li>
+        </ol>
+      </section>
+
+      <!-- Screen 3: Lightroom 1-Click HDR Panorama -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Step 2: Lightroom&apos;s 1-Click &ldquo;HDR Panorama&rdquo; Merge</h2>
+        <p>Do not waste time manually merging each 3-shot bracket first. Lightroom has a dedicated engine that merges brackets and stitches the panorama simultaneously:</p>
+
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="flow-step-num">1</div>
+            <p><strong>Select All 18 RAWs</strong><br>In Lightroom Library grid (<code>G</code>), select all 18 files from the session at once.</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">2</div>
+            <p><strong>Cmd + Shift + M</strong><br>Right-click &rarr; <strong>Photo Merge &rarr; HDR Panorama</strong> (Shortcut: <code>Cmd + Shift + M</code> on Mac / <code>Ctrl + Shift + M</code> on Win).</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">3</div>
+            <p><strong>Lightroom AI Engine</strong><br>Lightroom groups the 18 frames into 6 brackets, creates 32-bit HDRs in RAM, and stitches the vista in one pass!</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">4</div>
+            <p><strong>Select Cylindrical</strong><br>Choose <strong>Cylindrical</strong> projection, set Boundary Warp to <strong>80-90</strong>, and check <strong>Fill Edges</strong>.</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">5</div>
+            <p><strong>Merge 100MP DNG</strong><br>Click <strong>Merge</strong>. Lightroom creates a single colossal <code>-HDRPano.dng</code> file!</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 4: Developing -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Step 3: Developing Your 32-Bit HDR Panorama</h2>
+        <p>Open the new <code>-HDRPano.dng</code> file in Lightroom&apos;s <strong>Develop Module (D)</strong>:</p>
+        <ul class="styled-list">
+          <li><strong>Highlights (&minus;60 to &minus;90):</strong> The blazing sun and sunset clouds reveal incredible orange and purple textures without gray muddy clipping.</li>
+          <li><strong>Shadows (+30 to +50):</strong> Dark foreground trees and rocks emerge with crystal clarity and <strong>zero chrominance noise</strong> because they were exposed at +2 EV in the bracket!</li>
+          <li><strong>Dehaze (+10) &amp; Clarity (+15):</strong> Cuts atmospheric haze across distant mountains while maintaining natural foreground colors.</li>
+          <li><strong>Zoom to 100%:</strong> Pan across your 100+ megapixel image to inspect tack-sharp leaves, branches, and rock textures miles in the distance.</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</section>
+<section class="module" id="module-6" style="background: var(--color-bg-warm);">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">06</span>
+      <h1 class="module-title">Infinite Focus Stacking with focus_stack.lua</h1>
+      <p class="module-subtitle">Complete step-by-step tutorial: automated EF-M lens focus racking and depth-of-field blending in Photoshop</p>
+    </header>
+
+    <div class="module-body">
+      <!-- Screen 1: Why f/8 Focus Stacking Beats f/22 -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">The Optics: Why f/8 Stacking Beats f/22</h2>
+        <p>Landscape photographers often stop down to <strong>f/22</strong> to get everything in focus, but the resulting image is soft and blurry across the entire frame. This is caused by <strong>optical diffraction</strong>: on the EOS M3&apos;s tiny 3.72-micron pixels, light waves passing through a tiny f/22 pinhole bend and smear fine details across adjacent pixels.</p>
+        <p>By shooting multiple frames at the lens&apos;s optical sweet spot (<strong>f/8</strong>) while stepping the focus motor incrementally from foreground to infinity, you get <strong>infinite depth of field with 3&times; higher optical sharpness</strong>!</p>
+      </section>
+
+      <!-- Screen 2: Field Setup -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Step 1: Field Setup &amp; Running focus_stack.lua</h2>
+        <ol class="styled-list">
+          <li>Mount your camera on a steady tripod. Set mode dial to <strong>M or Av at f/8, ISO 100</strong>.</li>
+          <li>Slide the lens switch to <strong>MF (Manual Focus)</strong>.</li>
+          <li>Turn the focus ring to focus sharply on the <strong>closest object in your foreground</strong> (e.g. wild flowers, rocks, or ice 15cm away).</li>
+          <li>Press <strong>M-Fn</strong> (&lt;ALT&gt;) &rarr; <strong>MENU</strong> &rarr; <strong>Script</strong> &rarr; <strong>Load Script from File...</strong> &rarr; select <code>focus_stack.lua</code>.</li>
+          <li>Verify script parameters:
+            <ul class="styled-list">
+              <li><strong>Number of Shots:</strong> <code>12</code></li>
+              <li><strong>Step Size (EF-M Motor Steps):</strong> <code>15</code></li>
+              <li><strong>Initial Delay:</strong> <code>2</code> (seconds)</li>
+            </ul>
+          </li>
+          <li>Press <strong>MENU</strong> to exit. Press the <strong>Shutter button</strong>.</li>
+          <li><strong>Automated Execution:</strong>
+            <ul class="styled-list">
+              <li>The camera takes the first shot of your close foreground.</li>
+              <li>The script sends an electrical pulse to the EF-M lens mount via <code>EFLensCom.MoveFocus</code>, stepping the focus motor outward.</li>
+              <li>The camera pauses 400ms for the internal glass to settle, then fires the next shot.</li>
+              <li>This repeats until all 12 focal slices are captured all the way to infinity!</li>
+            </ul>
+          </li>
+        </ol>
+      </section>
+
+      <!-- Screen 3: Photoshop Blending -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Step 2: Blending the Focus Slices in Photoshop</h2>
+        <p>Because focusing from close to far slightly alters the optical focal length (known as <em>focus breathing</em>), stacking software must automatically align and scale the layers before blending:</p>
+
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="flow-step-num">1</div>
+            <p><strong>Load Files into Stack</strong><br>In Photoshop: <strong>File &rarr; Scripts &rarr; Load Files into Stack</strong>. Browse and select your 12 frames.</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">2</div>
+            <p><strong>Auto-Align Layers</strong><br>Check <strong>Attempt to Automatically Align Source Images</strong> &rarr; click <strong>OK</strong>.</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">3</div>
+            <p><strong>Select All Layers</strong><br>In the Layers panel, select all 12 layers (Press <code>Cmd + Option + A</code> on Mac / <code>Ctrl + Alt + A</code> on Win).</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">4</div>
+            <p><strong>Auto-Blend Layers</strong><br>Go to <strong>Edit &rarr; Auto-Blend Layers</strong>. Choose <strong>Stack Images</strong> and check <strong>Seamless Tones and Colors</strong>.</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">5</div>
+            <p><strong>Master Sharpness</strong><br>Photoshop creates precision layer masks, keeping only the tack-sharp pixels from foreground to infinity!</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 4: Field Gotchas -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Focus Stacking Gotchas &amp; Troubleshooting</h2>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Issue</th>
+              <th>Cause</th>
+              <th>Solution</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Lens motor does not step between shots</td>
+              <td>Lua Native Calls disabled in CHDK</td>
+              <td>In CHDK Menu &rarr; Miscellaneous stuff &rarr; check <strong>Enable Lua Native Calls [ * ]</strong>.</td>
+            </tr>
+            <tr>
+              <td>Blurry patches appear in final blend</td>
+              <td>Step size was too large, leaving unsharp focal gaps</td>
+              <td>Increase <code>Number of Shots</code> to 15 or reduce <code>Step Size</code> to 10 for deep macro scenes.</td>
+            </tr>
+            <tr>
+              <td>Ghosting around foliage</td>
+              <td>Wind moved leaves between frames</td>
+              <td>Shoot on calm days or use Photoshop&apos;s Layer Mask brush to paint in the sharpest single frame for moving foliage.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </div>
+</section>
+  </main>
+
+</body>
+</html>

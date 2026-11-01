@@ -1,0 +1,109 @@
+<section class="module" id="module-6" style="background: var(--color-bg-warm);">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">06</span>
+      <h1 class="module-title">Infinite Focus Stacking with focus_stack.lua</h1>
+      <p class="module-subtitle">Complete step-by-step tutorial: automated EF-M lens focus racking and depth-of-field blending in Photoshop</p>
+    </header>
+
+    <div class="module-body">
+      <!-- Screen 1: Why f/8 Focus Stacking Beats f/22 -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">The Optics: Why f/8 Stacking Beats f/22</h2>
+        <p>Landscape photographers often stop down to <strong>f/22</strong> to get everything in focus, but the resulting image is soft and blurry across the entire frame. This is caused by <strong>optical diffraction</strong>: on the EOS M3&apos;s tiny 3.72-micron pixels, light waves passing through a tiny f/22 pinhole bend and smear fine details across adjacent pixels.</p>
+        <p>By shooting multiple frames at the lens&apos;s optical sweet spot (<strong>f/8</strong>) while stepping the focus motor incrementally from foreground to infinity, you get <strong>infinite depth of field with 3&times; higher optical sharpness</strong>!</p>
+      </section>
+
+      <!-- Screen 2: Field Setup -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Step 1: Field Setup &amp; Running focus_stack.lua</h2>
+        <ol class="styled-list">
+          <li>Mount your camera on a steady tripod. Set mode dial to <strong>M or Av at f/8, ISO 100</strong>.</li>
+          <li>Slide the lens switch to <strong>MF (Manual Focus)</strong>.</li>
+          <li>Turn the focus ring to focus sharply on the <strong>closest object in your foreground</strong> (e.g. wild flowers, rocks, or ice 15cm away).</li>
+          <li>Press <strong>M-Fn</strong> (&lt;ALT&gt;) &rarr; <strong>MENU</strong> &rarr; <strong>Script</strong> &rarr; <strong>Load Script from File...</strong> &rarr; select <code>focus_stack.lua</code>.</li>
+          <li>Verify script parameters:
+            <ul class="styled-list">
+              <li><strong>Number of Shots:</strong> <code>12</code></li>
+              <li><strong>Step Size (EF-M Motor Steps):</strong> <code>15</code></li>
+              <li><strong>Initial Delay:</strong> <code>2</code> (seconds)</li>
+            </ul>
+          </li>
+          <li>Press <strong>MENU</strong> to exit. Press the <strong>Shutter button</strong>.</li>
+          <li><strong>Automated Execution:</strong>
+            <ul class="styled-list">
+              <li>The camera takes the first shot of your close foreground.</li>
+              <li>The script sends an electrical pulse to the EF-M lens mount via <code>EFLensCom.MoveFocus</code>, stepping the focus motor outward.</li>
+              <li>The camera pauses 400ms for the internal glass to settle, then fires the next shot.</li>
+              <li>This repeats until all 12 focal slices are captured all the way to infinity!</li>
+            </ul>
+          </li>
+        </ol>
+      </section>
+
+      <!-- Screen 3: Photoshop Blending -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Step 2: Blending the Focus Slices in Photoshop</h2>
+        <p>Because focusing from close to far slightly alters the optical focal length (known as <em>focus breathing</em>), stacking software must automatically align and scale the layers before blending:</p>
+
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="flow-step-num">1</div>
+            <p><strong>Load Files into Stack</strong><br>In Photoshop: <strong>File &rarr; Scripts &rarr; Load Files into Stack</strong>. Browse and select your 12 frames.</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">2</div>
+            <p><strong>Auto-Align Layers</strong><br>Check <strong>Attempt to Automatically Align Source Images</strong> &rarr; click <strong>OK</strong>.</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">3</div>
+            <p><strong>Select All Layers</strong><br>In the Layers panel, select all 12 layers (Press <code>Cmd + Option + A</code> on Mac / <code>Ctrl + Alt + A</code> on Win).</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">4</div>
+            <p><strong>Auto-Blend Layers</strong><br>Go to <strong>Edit &rarr; Auto-Blend Layers</strong>. Choose <strong>Stack Images</strong> and check <strong>Seamless Tones and Colors</strong>.</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">5</div>
+            <p><strong>Master Sharpness</strong><br>Photoshop creates precision layer masks, keeping only the tack-sharp pixels from foreground to infinity!</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 4: Field Gotchas -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Focus Stacking Gotchas &amp; Troubleshooting</h2>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Issue</th>
+              <th>Cause</th>
+              <th>Solution</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Lens motor does not step between shots</td>
+              <td>Lua Native Calls disabled in CHDK</td>
+              <td>In CHDK Menu &rarr; Miscellaneous stuff &rarr; check <strong>Enable Lua Native Calls [ * ]</strong>.</td>
+            </tr>
+            <tr>
+              <td>Blurry patches appear in final blend</td>
+              <td>Step size was too large, leaving unsharp focal gaps</td>
+              <td>Increase <code>Number of Shots</code> to 15 or reduce <code>Step Size</code> to 10 for deep macro scenes.</td>
+            </tr>
+            <tr>
+              <td>Ghosting around foliage</td>
+              <td>Wind moved leaves between frames</td>
+              <td>Shoot on calm days or use Photoshop&apos;s Layer Mask brush to paint in the sharpest single frame for moving foliage.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </div>
+</section>

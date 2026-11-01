@@ -1,0 +1,133 @@
+<section class="module" id="module-2" style="background: var(--color-bg-warm);">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">02</span>
+      <h1 class="module-title">5-Stop HDR Bracketing &amp; Lightroom Merge</h1>
+      <p class="module-subtitle">Complete field and editing tutorial: shooting &minus;2 to +2 EV with bracket5_opt.lua and developing 32-bit DNGs</p>
+    </header>
+
+    <div class="module-body">
+      <!-- Screen 1: When to use -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">When &amp; Why to Use 5-Stop Bracketing</h2>
+        <p>Use <strong>5-stop bracketing</strong> whenever your scene has extreme contrast that exceeds the sensor&apos;s 11.8-stop limit:</p>
+        <ul class="styled-list">
+          <li>Sunsets or sunrises with dark landscape foregrounds.</li>
+          <li>Looking from inside a dark room, cave, or archway out into bright sunlight.</li>
+          <li>High-contrast mountain scenes with bright snow and deep shadow ravines.</li>
+        </ul>
+        <p>The script fires 5 consecutive RAW images spaced 1 stop apart: <strong>&minus;2 EV, &minus;1 EV, 0 EV, +1 EV, +2 EV</strong>. Shutter speed changes automatically while aperture stays strictly locked at f/8.</p>
+      </section>
+
+      <!-- Screen 2: Field Setup -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Field Tutorial: Shooting the 5-Stop Bracket</h2>
+        
+        <div class="pattern-cards">
+          <div class="pattern-card">
+            <div class="pattern-icon" style="background: var(--color-accent);">1</div>
+            <h4 class="pattern-title">Camera Mode &amp; Aperture</h4>
+            <p class="pattern-desc">Set mode dial to <strong>Av (Aperture Priority)</strong> or <strong>M (Manual)</strong>. Set aperture to <strong>f/8</strong> (peak lens sharpness) and ISO to <strong>100</strong>.</p>
+          </div>
+          <div class="pattern-card">
+            <div class="pattern-icon" style="background: var(--color-accent);">2</div>
+            <h4 class="pattern-title">Frame &amp; Half-Press Meter</h4>
+            <p class="pattern-desc">Frame your shot on the tripod. Half-press the shutter once so the camera meters the scene&apos;s baseline (0 EV) shutter speed.</p>
+          </div>
+          <div class="pattern-card">
+            <div class="pattern-icon" style="background: var(--color-accent);">3</div>
+            <h4 class="pattern-title">Load bracket5_opt.lua</h4>
+            <p class="pattern-desc">Press <strong>M-Fn</strong> (&lt;ALT&gt;) &rarr; <strong>MENU</strong> &rarr; <strong>Script</strong> &rarr; <strong>Load Script from File...</strong> &rarr; select <code>bracket5_opt.lua</code>.</p>
+          </div>
+          <div class="pattern-card">
+            <div class="pattern-icon" style="background: var(--color-accent);">4</div>
+            <h4 class="pattern-title">Configure Parameters</h4>
+            <p class="pattern-desc">Verify settings: <code>Step size (EV) = 1</code>, <code>Timer Delay = 2</code> (seconds), <code>Target ISO = 100</code>.</p>
+          </div>
+          <div class="pattern-card">
+            <div class="pattern-icon" style="background: var(--color-accent);">5</div>
+            <h4 class="pattern-title">Press Shutter &amp; Hands Off!</h4>
+            <p class="pattern-desc">Press MENU to close. Press the Shutter button. The camera waits 2s to kill vibration, locks autofocus, fires all 5 frames, and restores your settings.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 3: Lightroom Post-Processing -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Computer Tutorial: Merging into 32-bit HDR in Lightroom</h2>
+        <p>Follow these exact steps inside Adobe Lightroom Classic or Lightroom CC:</p>
+
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="flow-step-num">1</div>
+            <p><strong>Import RAW Files</strong><br>Import the 5 <code>.CR2</code> files from your SD card into Lightroom.</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">2</div>
+            <p><strong>Select All 5</strong><br>In Library Grid (<code>G</code>), Shift-click the 5 bracketed frames to highlight them.</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">3</div>
+            <p><strong>Press Cmd + H</strong><br>Right-click &rarr; <strong>Photo Merge &rarr; HDR</strong> (Shortcut: <code>Cmd + H</code> on Mac / <code>Ctrl + H</code> on Win).</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">4</div>
+            <p><strong>Configure Dialog</strong><br>Check <em>Auto Align</em>. Set <em>Deghost</em> to <strong>Low</strong> (or None). Check <em>Auto Settings</em>.</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">5</div>
+            <p><strong>Merge 32-Bit DNG</strong><br>Click <strong>Merge</strong>. Lightroom creates a new <code>[filename]-HDR.dng</code> file.</p>
+          </div>
+        </div>
+
+        <div class="callout callout-accent">
+          <div class="callout-icon">🎛️</div>
+          <div class="callout-content">
+            <strong class="callout-title">Developing the 32-Bit DNG in Lightroom Develop Module (D)</strong>
+            <p>Because the output is a true 32-bit raw file, the Develop sliders give you unmatched recovery latitude:</p>
+            <ul class="styled-list">
+              <li><strong>Highlights (&minus;50 to &minus;80):</strong> Brings back full sky gradient, sun flare detail, and cloud texture without muddy grays.</li>
+              <li><strong>Shadows (+30 to +60):</strong> Pulls clean foreground shadow details out of the darks with zero chrominance noise.</li>
+              <li><strong>White/Black Clipping:</strong> Hold the <code>Option</code> key (Mac) / <code>Alt</code> key (Win) while dragging the Whites and Blacks sliders to set clean pure-white and pure-black endpoints.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 4: Field Gotchas -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Field Troubleshooting &amp; Pro-Tips</h2>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Issue</th>
+              <th>Cause</th>
+              <th>Solution</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Lightroom shows ghosting blur</td>
+              <td>Wind blew foliage between shots</td>
+              <td>In the HDR Merge dialog, set Deghosting to <strong>Medium</strong> or <strong>High</strong>.</td>
+            </tr>
+            <tr>
+              <td>Script stops after frame 1</td>
+              <td>Image Review is active</td>
+              <td>Disable Image Review in Canon Menu &rarr; Shoot Tab 1.</td>
+            </tr>
+            <tr>
+              <td>Exposure steps look uneven</td>
+              <td>Auto-ISO fought the script</td>
+              <td>Set ISO manually in Canon mode or verify <code>Target ISO = 100</code> in script.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </div>
+</section>

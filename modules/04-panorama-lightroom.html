@@ -1,0 +1,119 @@
+<section class="module" id="module-4" style="background: var(--color-bg-warm);">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">04</span>
+      <h1 class="module-title">Panoramic Landscape &amp; Lightroom Stitching</h1>
+      <p class="module-subtitle">Step-by-step field execution with pano_helper.lua and seamless stitching in Lightroom</p>
+    </header>
+
+    <div class="module-body">
+      <!-- Screen 1: Physical Setup -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Step 1: Physical Tripod &amp; Camera Alignment</h2>
+        <div class="pattern-cards">
+          <div class="pattern-card">
+            <div class="pattern-icon" style="background: var(--color-actor-4);">📐</div>
+            <h4 class="pattern-title">Mount Vertically (Portrait)</h4>
+            <p class="pattern-desc">Mount your camera in portrait orientation using an L-bracket or tilted tripod head. Vertical frames give you <strong>6000 vertical pixels</strong> of resolution and natural landscape proportions.</p>
+          </div>
+          <div class="pattern-card">
+            <div class="pattern-icon" style="background: var(--color-actor-4);">⚖️</div>
+            <h4 class="pattern-title">Level Your Tripod Base</h4>
+            <p class="pattern-desc">Ensure your tripod head rotates on a perfectly horizontal plane. If the tripod is tilted, your panoramic sweep will curve like a banana, forcing severe cropping.</p>
+          </div>
+          <div class="pattern-card">
+            <div class="pattern-icon" style="background: var(--color-actor-4);">🎯</div>
+            <h4 class="pattern-title">Lock Camera Settings</h4>
+            <p class="pattern-desc">Dial to <strong>M (Manual)</strong> at <strong>f/8, ISO 100</strong>. White Balance set to <strong>Daylight (5200K)</strong>—never Auto White Balance!</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 2: pano_helper.lua Execution -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Step 2: Shooting with pano_helper.lua</h2>
+        <p>This script completely prevents exposure and focus shifts between panels and paces your tripod rotations with audio beeps:</p>
+
+        <ol class="styled-list">
+          <li>Aim the camera at the <strong>primary midtone region</strong> of your vista.</li>
+          <li>Press <strong>M-Fn</strong> (&lt;ALT&gt;) &rarr; <strong>MENU</strong> &rarr; <strong>Script</strong> &rarr; <strong>Load Script from File...</strong> &rarr; select <code>pano_helper.lua</code>.</li>
+          <li>Set <strong>Number of Pano Panels</strong> to <code>6</code> (or your chosen count covering your sweep with 30% overlap).</li>
+          <li>Set <strong>Pause to Rotate Tripod (sec)</strong> to <code>4</code>.</li>
+          <li>Set <strong>Bracket Each Panel?</strong> to <code>0</code> (standard single exposure).</li>
+          <li>Press <strong>MENU</strong> to close. Frame your <strong>first panel (far left)</strong> and press the <strong>Shutter button</strong>.</li>
+          <li><strong>Listen for the Beep:</strong>
+            <ul class="styled-list">
+              <li>The camera meters and locks exposure and focus, then shoots Panel 1.</li>
+              <li>You will hear an audio <strong>BEEP</strong>!</li>
+              <li>Smoothly turn your tripod head to the right by ~30% overlap during the 4-second pause.</li>
+              <li>Take your hands off the camera. Panel 2 fires automatically.</li>
+              <li>Repeat until the script double-beeps to signal the panorama is complete!</li>
+            </ul>
+          </li>
+        </ol>
+      </section>
+
+      <!-- Screen 3: Lightroom Stitching -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Step 3: Stitching the Panorama in Lightroom</h2>
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="flow-step-num">1</div>
+            <p><strong>Select Panels</strong><br>In Lightroom Library grid (<code>G</code>), select all 6 panels.</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">2</div>
+            <p><strong>Press Cmd + M</strong><br>Right-click &rarr; <strong>Photo Merge &rarr; Panorama</strong> (Shortcut: <code>Cmd + M</code>).</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">3</div>
+            <p><strong>Choose Cylindrical</strong><br>Select <strong>Cylindrical Projection</strong> (keeps the horizon straight without spherical bowing).</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">4</div>
+            <p><strong>Boundary Warp</strong><br>Drag Boundary Warp to <strong>80-90</strong> to pull edges into the corners, or check <strong>Fill Edges</strong>.</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">5</div>
+            <p><strong>Merge</strong><br>Click <strong>Merge</strong>. Lightroom creates an 80+ megapixel <code>-Pano.dng</code> RAW file!</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 4: Gotchas -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Panorama Field Gotchas &amp; Troubleshooting</h2>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Problem</th>
+              <th>Cause</th>
+              <th>Solution</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Lightroom says &ldquo;Unable to merge&rdquo;</td>
+              <td>Overlap between panels was too small (&lt;25%)</td>
+              <td>Turn tripod less between shots; ensure 30% to 40% overlap between adjacent frames.</td>
+            </tr>
+            <tr>
+              <td>Sky has vertical stripes</td>
+              <td>White Balance or Shutter changed</td>
+              <td>Always use <code>pano_helper.lua</code> and lock WB to Daylight in Canon menu.</td>
+            </tr>
+            <tr>
+              <td>Foreground objects don&apos;t align</td>
+              <td>Parallax error (camera pivoted behind lens nodal point)</td>
+              <td>Keep prominent foreground rocks at least 2 meters away when panning on a standard tripod head.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </div>
+</section>

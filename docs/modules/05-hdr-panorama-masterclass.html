@@ -1,0 +1,91 @@
+<section class="module" id="module-5" style="background: var(--color-bg);">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">05</span>
+      <h1 class="module-title">Masterclass: HDR Panorama on the EOS M3</h1>
+      <p class="module-subtitle">Complete step-by-step tutorial: shooting the exposure matrix with pano_helper and 1-click merging in Lightroom</p>
+    </header>
+
+    <div class="module-body">
+      <!-- Screen 1: What is an HDR Panorama -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">The Concept: The Exposure Matrix</h2>
+        <p>An <strong>HDR Panorama</strong> combines multi-exposure bracketing with panoramic stitching. When shooting into high-contrast sunsets, single-exposure panoramas blow out the sun or plunge foregrounds into black noise.</p>
+        <p>By shooting a 3-stop bracket (&minus;2 EV, 0 EV, +2 EV) at <em>every single rotation angle</em>, you capture the entire 160&deg; landscape with zero blown highlights and zero noisy shadows:</p>
+        <p style="font-family: var(--font-mono); font-weight: 600; text-align: center; margin: 12px 0;">6 Panels &times; 3 Bracketed Exposures = 18 RAW Frames Total</p>
+      </section>
+
+      <!-- Screen 2: Field Setup -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Step 1: Shooting the HDR Matrix with pano_helper.lua</h2>
+        <ol class="styled-list">
+          <li>Mount your camera vertically on your tripod. Set mode dial to <strong>M (Manual)</strong> at <strong>f/8, ISO 100</strong>.</li>
+          <li>Set White Balance to <strong>Daylight (5200K)</strong> in the Canon menu.</li>
+          <li>Press <strong>M-Fn</strong> (&lt;ALT&gt;) &rarr; <strong>MENU</strong> &rarr; <strong>Script</strong> &rarr; <strong>Load Script from File...</strong> &rarr; select <code>pano_helper.lua</code>.</li>
+          <li>Configure these exact parameters:
+            <ul class="styled-list">
+              <li><strong>Number of Pano Panels:</strong> <code>6</code></li>
+              <li><strong>Pause to Rotate Tripod (sec):</strong> <code>5</code> (gives a comfortable window to rotate smoothly)</li>
+              <li><strong>Bracket Each Panel?:</strong> Set to <code>1</code> &larr; <em>CRUCIAL: Enables HDR bracketing at each angle!</em></li>
+            </ul>
+          </li>
+          <li>Press <strong>MENU</strong> to exit. Aim at your starting frame (far left) and press the <strong>Shutter button</strong>.</li>
+          <li><strong>The Shooting Cycle:</strong>
+            <ul class="styled-list">
+              <li>The camera locks settings and fires 3 rapid bracketed shots: &minus;2 EV (sky), 0 EV (midtones), and +2 EV (shadows).</li>
+              <li>You hear a <strong>BEEP</strong>!</li>
+              <li>Smoothly rotate your tripod head to the right by ~30% overlap during the 5-second pause.</li>
+              <li>Take your hands off. The camera automatically fires the next 3 bracketed shots!</li>
+              <li>Repeat across all 6 panels until the script finishes.</li>
+            </ul>
+          </li>
+        </ol>
+      </section>
+
+      <!-- Screen 3: Lightroom 1-Click HDR Panorama -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Step 2: Lightroom&apos;s 1-Click &ldquo;HDR Panorama&rdquo; Merge</h2>
+        <p>Do not waste time manually merging each 3-shot bracket first. Lightroom has a dedicated engine that merges brackets and stitches the panorama simultaneously:</p>
+
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="flow-step-num">1</div>
+            <p><strong>Select All 18 RAWs</strong><br>In Lightroom Library grid (<code>G</code>), select all 18 files from the session at once.</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">2</div>
+            <p><strong>Cmd + Shift + M</strong><br>Right-click &rarr; <strong>Photo Merge &rarr; HDR Panorama</strong> (Shortcut: <code>Cmd + Shift + M</code> on Mac / <code>Ctrl + Shift + M</code> on Win).</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">3</div>
+            <p><strong>Lightroom AI Engine</strong><br>Lightroom groups the 18 frames into 6 brackets, creates 32-bit HDRs in RAM, and stitches the vista in one pass!</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">4</div>
+            <p><strong>Select Cylindrical</strong><br>Choose <strong>Cylindrical</strong> projection, set Boundary Warp to <strong>80-90</strong>, and check <strong>Fill Edges</strong>.</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">5</div>
+            <p><strong>Merge 100MP DNG</strong><br>Click <strong>Merge</strong>. Lightroom creates a single colossal <code>-HDRPano.dng</code> file!</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 4: Developing -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Step 3: Developing Your 32-Bit HDR Panorama</h2>
+        <p>Open the new <code>-HDRPano.dng</code> file in Lightroom&apos;s <strong>Develop Module (D)</strong>:</p>
+        <ul class="styled-list">
+          <li><strong>Highlights (&minus;60 to &minus;90):</strong> The blazing sun and sunset clouds reveal incredible orange and purple textures without gray muddy clipping.</li>
+          <li><strong>Shadows (+30 to +50):</strong> Dark foreground trees and rocks emerge with crystal clarity and <strong>zero chrominance noise</strong> because they were exposed at +2 EV in the bracket!</li>
+          <li><strong>Dehaze (+10) &amp; Clarity (+15):</strong> Cuts atmospheric haze across distant mountains while maintaining natural foreground colors.</li>
+          <li><strong>Zoom to 100%:</strong> Pan across your 100+ megapixel image to inspect tack-sharp leaves, branches, and rock textures miles in the distance.</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</section>

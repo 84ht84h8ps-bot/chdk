@@ -1,0 +1,85 @@
+<section class="module" id="module-1" style="background: var(--color-bg);">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">01</span>
+      <h1 class="module-title">Camera Prep &amp; CHDK Quickstart</h1>
+      <p class="module-subtitle">Complete physical checklist and navigation fundamentals before running any script</p>
+    </header>
+
+    <div class="module-body">
+      <!-- Screen 1: Mandatory Camera Physical Settings -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Step 1: Mandatory Canon Physical &amp; Menu Setup</h2>
+        <p>Before launching CHDK or mounting on your tripod, configure these exact settings in the native Canon menu. If these are not configured, auto-algorithms will fight the scripts:</p>
+
+        <div class="pattern-cards">
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-1);">
+            <div class="pattern-icon" style="background: var(--color-actor-1);">🛑</div>
+            <h4 class="pattern-title">1. Lens IS &rarr; OFF</h4>
+            <p class="pattern-desc">Turn off Image Stabilization using the physical lens switch or in Canon Menu &rarr; Shoot Tab 1 &rarr; IS Settings &rarr; Off. On a tripod, IS sensors create feedback loops that cause micro-blur.</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-2);">
+            <div class="pattern-icon" style="background: var(--color-actor-2);">🎨</div>
+            <h4 class="pattern-title">2. Lock White Balance</h4>
+            <p class="pattern-desc">Set White Balance to <strong>Daylight (5200K)</strong> for daytime/panoramas, or <strong>Tungsten/4000K</strong> for astrophotography. Never leave on AWB (Auto), or colors will shift between frames.</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-3);">
+            <div class="pattern-icon" style="background: var(--color-actor-3);">⚡</div>
+            <h4 class="pattern-title">3. Image Quality &rarr; RAW</h4>
+            <p class="pattern-desc">In native Canon Menu &rarr; Shoot Tab 1 &rarr; Image Quality, select <strong>RAW</strong>. This produces native 14-bit <code>.CR2</code> files with full sensor dynamic range.</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-4);">
+            <div class="pattern-icon" style="background: var(--color-actor-4);">⏱️</div>
+            <h4 class="pattern-title">4. Image Review &rarr; OFF</h4>
+            <p class="pattern-desc">Canon Menu &rarr; Shoot Tab 1 &rarr; Image Review &rarr; <strong>Off</strong>. Disabling post-shot LCD playback prevents the camera from freezing between fast interval shots.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 2: CHDK Navigation on EOS M3 -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Step 2: Operating CHDK on the EOS M3</h2>
+        <p>CHDK runs as a transparent overlay in camera RAM. Learn the 3 key button actions:</p>
+
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="flow-step-num">M-Fn</div>
+            <p><strong>Toggle &lt;ALT&gt; Mode</strong><br>Press the M-Fn button (next to shutter). <code>&lt;ALT&gt;</code> appears at screen bottom.</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">MENU</div>
+            <p><strong>Open CHDK Menu</strong><br>While &lt;ALT&gt; is showing, press MENU. Navigate with the D-pad and press SET to select.</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-num">SHUTTER</div>
+            <p><strong>Run / Stop Script</strong><br>Exit menu (press MENU). While &lt;ALT&gt; is showing, press Shutter to start. Press again to abort.</p>
+          </div>
+        </div>
+
+        <div class="callout callout-accent">
+          <div class="callout-icon">💡</div>
+          <div class="callout-content">
+            <strong class="callout-title">One-Time Prerequisite: Enable Lua Native Calls</strong>
+            <p>In CHDK Menu &rarr; <strong>Miscellaneous stuff</strong> &rarr; scroll to <strong>Enable Lua Native Calls</strong> &rarr; press SET to check <code>[ * ]</code>. This is required for our scripts to control EF-M electronic lens motors.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 3: How to Load Any Script -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Step 3: Loading Any Script in 10 Seconds</h2>
+        <ol class="styled-list">
+          <li>Press <strong>M-Fn</strong> so <code>&lt;ALT&gt;</code> appears at the bottom of your LCD.</li>
+          <li>Press <strong>MENU</strong> to open the CHDK menu.</li>
+          <li>Scroll to <strong>Script</strong> and press <strong>SET</strong>.</li>
+          <li>Select <strong>Load Script from File...</strong> &rarr; press <strong>SET</strong>.</li>
+          <li>Choose your script (e.g. <code>fixedint.lua</code>, <code>bracket5_opt.lua</code>, <code>pano_helper.lua</code>, <code>focus_stack.lua</code>) and press <strong>SET</strong>.</li>
+          <li>Adjust the script parameters right on screen using Left/Right on the dial.</li>
+          <li>Press <strong>MENU</strong> to close. With <code>&lt;ALT&gt;</code> still displayed, press the <strong>Shutter button</strong> to start shooting!</li>
+        </ol>
+      </section>
+    </div>
+  </div>
+</section>
