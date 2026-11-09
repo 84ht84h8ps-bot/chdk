@@ -237,20 +237,28 @@ On the EOS M3's 24MP APS-C sensor, pixels measure just **3.72 microns**. When li
 
 By shooting at **f/8** (the lens's peak optical resolving power) and stepping the focus motor incrementally from foreground to infinity, you achieve **infinite depth of field with 3x higher sharpness**!
 
+### Mandatory EOS M3 Settings Before Focus Stacking
+> [!IMPORTANT]
+> Standard CHDK `set_focus()` is **not implemented** on the Canon EOS M3. To move electronic EF-M lenses, `focus_stack.lua` uses Canon's internal `FA.Create`, `InitializeAdjustmentSystem`, and `EFLensCom.MoveFocus` firmware procedures. Check these **3 settings** before shooting:
+> 1. **CHDK Lua Native Calls ON:** Press **`M-Fn`** (&lt;ALT&gt;) &rarr; **`MENU`** &rarr; **Miscellaneous stuff** &rarr; enable **`Enable Lua Native Calls [*]`** (confirm *"Are you sure?"* with `SET`).
+> 2. **Canon Focus Mode = MF & Continuous AF = Off:** Because EF-M lenses lack a physical AF/MF switch on the barrel, exit &lt;ALT&gt; mode, press **`Q / SET`** &rarr; switch Focus Mode to **`MF` (Manual Focus)**, and set **Continuous AF: Off** in the Canon menu so half-pressing the shutter never re-autofocuses.
+> 3. **Electronic EF-M (or Adapted EF/EF-S) Lens:** Fully manual third-party lenses (TTArtisan/7Artisans) have no internal focus motor.
+
 ### Field Setup & Shooting with focus_stack.lua
 1. Mount camera on a steady tripod. Set mode dial to **M or Av at f/8, ISO 100**.
-2. Switch lens to **MF (Manual Focus)**.
-3. Turn the focus ring to focus sharply on the **closest object in your foreground** (e.g. wild flowers or rocks 15cm away).
-4. Press **`M-Fn`** (&lt;ALT&gt;) &rarr; **`MENU`** &rarr; **Script** &rarr; **Load Script from File...** &rarr; select `focus_stack.lua`.
-5. Configure parameters:
-   - `Number of Shots`: `12`
-   - `Step Size (EF-M Motor Steps)`: `15`
+2. In Canon **MF** mode, turn the focus ring to focus sharply on the **closest object in your foreground** (or set `Start Position = 1` in the script to drive to Minimum Focus Distance automatically).
+3. Press **`M-Fn`** (&lt;ALT&gt;) &rarr; **`MENU`** &rarr; **Script** &rarr; **Load Script from File...** &rarr; select `focus_stack.lua`.
+4. Configure parameters:
+   - `Start Position (0=Current, 1=Near/MFD)`: `0`
+   - `Max Shots (Safety Cap)`: `15`
+   - `Initial Step Size (Motor Steps)`: `25`
+   - `Step Growth % per Shot`: `40` *(progressively widens steps as Depth of Field grows with distance)*
+   - `Final True-Infinity Shot`: `1 (Yes)` *(drives lens to optical infinity via `EFLensCom.FocusSearchFar`)*
    - `Initial Delay`: `2` (seconds)
-6. Press **`MENU`** to exit. Press the **Shutter button**:
-   - The camera fires the foreground shot.
-   - The script pulses the EF-M lens mount via `EFLensCom.MoveFocus`, stepping the focus motor outward.
-   - Pauses 400ms for lens glass to settle, then fires the next shot.
-   - Repeats until all 12 focal slices are captured all the way to infinity.
+5. Press **`MENU`** to exit. Press the **Shutter button**:
+   - The script initializes `FA.Create` + `InitializeAdjustmentSystem`, enforces `set_mf(1)`, locks exposure (Tv/Av), and fires the foreground shot.
+   - Between shots, it steps the EF-M motor outward via `EFLensCom.MoveFocus` with progressive step growth (`+40%` per frame), displaying live motor step and Canon distance (`cm` / `m` / `INF`) on screen.
+   - Stops automatically once optical infinity (`81m+`) is reached and takes a guaranteed final **True Infinity** frame via `EFLensCom.FocusSearchFar`.
 
 ### Photoshop Depth-of-Field Blending Tutorial
 1. Open **Adobe Photoshop**. Go to **File &rarr; Scripts &rarr; Load Files into Stack**.

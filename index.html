@@ -619,26 +619,39 @@
 
       <!-- Screen 2: Field Setup -->
       <section class="screen animate-in">
-        <h2 class="screen-heading">Step 1: Field Setup &amp; Running focus_stack.lua</h2>
+        <h2 class="screen-heading">Step 1: Mandatory EOS M3 Settings &amp; Running focus_stack.lua</h2>
+        <div class="callout callout-info" style="margin-bottom: var(--space-6);">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-content">
+            <strong class="callout-title">3 Required Settings on the Canon EOS M3 Before Focus Stacking</strong>
+            <p>Unlike PowerShot compacts, the EOS M3 does not support CHDK&apos;s standard <code>set_focus()</code> override. It drives electronic <strong>Canon EF-M lenses</strong> directly via Canon&apos;s internal <code>FA.Create</code> / <code>EFLensCom.MoveFocus</code> firmware routines. You <strong>must</strong> set these 3 options once:</p>
+            <ol class="styled-list">
+              <li><strong>Enable Lua Native Calls in CHDK:</strong> Press <strong>M-Fn</strong> (&lt;ALT&gt;) &rarr; <strong>MENU</strong> &rarr; <strong>Miscellaneous stuff</strong> &rarr; check <strong>Enable Lua Native Calls [ &bull; ]</strong> (press <strong>SET</strong> on <em>&quot;Are you sure?&quot;</em>).</li>
+              <li><strong>Set Canon Focus Mode to MF:</strong> EF-M lenses have no physical AF/MF switch on the barrel. Exit &lt;ALT&gt; mode, press <strong>Q / SET</strong> &rarr; set Focus Mode to <strong>MF (Manual Focus)</strong>, and in the Canon Menu set <strong>Continuous AF: Off</strong> (otherwise half-pressing the shutter re-autofocuses every shot!).</li>
+              <li><strong>Use an Electronic EF-M (or Adapted EF/EF-S) Lens:</strong> Manual-only third-party lenses (e.g. TTArtisan/7Artisans) have no internal stepper motor.</li>
+            </ol>
+          </div>
+        </div>
         <ol class="styled-list">
           <li>Mount your camera on a steady tripod. Set mode dial to <strong>M or Av at f/8, ISO 100</strong>.</li>
-          <li>Slide the lens switch to <strong>MF (Manual Focus)</strong>.</li>
-          <li>Turn the focus ring to focus sharply on the <strong>closest object in your foreground</strong> (e.g. wild flowers, rocks, or ice 15cm away).</li>
+          <li>In Canon <strong>MF</strong> mode, turn the focus ring to focus sharply on the <strong>closest object in your foreground</strong> (or set <code>Start Position = 1 (Near/MFD)</code> to let the script drive the lens to Minimum Focus Distance automatically).</li>
           <li>Press <strong>M-Fn</strong> (&lt;ALT&gt;) &rarr; <strong>MENU</strong> &rarr; <strong>Script</strong> &rarr; <strong>Load Script from File...</strong> &rarr; select <code>focus_stack.lua</code>.</li>
           <li>Verify script parameters:
             <ul class="styled-list">
-              <li><strong>Number of Shots:</strong> <code>12</code></li>
-              <li><strong>Step Size (EF-M Motor Steps):</strong> <code>15</code></li>
+              <li><strong>Start Position (0=Current, 1=Near/MFD):</strong> <code>0</code> (starts from your current foreground focus) or <code>1</code> (drives to MFD first)</li>
+              <li><strong>Max Shots (Safety Cap):</strong> <code>15</code></li>
+              <li><strong>Initial Step Size (Motor Steps):</strong> <code>25</code></li>
+              <li><strong>Step Growth % per Shot:</strong> <code>40</code> (progressively widens motor steps as depth of field expands with distance)</li>
+              <li><strong>Final True-Infinity Shot:</strong> <code>1 (Yes)</code> (drives lens to optical infinity via <code>EFLensCom.FocusSearchFar</code> for the final frame)</li>
               <li><strong>Initial Delay:</strong> <code>2</code> (seconds)</li>
             </ul>
           </li>
           <li>Press <strong>MENU</strong> to exit. Press the <strong>Shutter button</strong>.</li>
           <li><strong>Automated Execution:</strong>
             <ul class="styled-list">
-              <li>The camera takes the first shot of your close foreground.</li>
-              <li>The script sends an electrical pulse to the EF-M lens mount via <code>EFLensCom.MoveFocus</code>, stepping the focus motor outward.</li>
-              <li>The camera pauses 400ms for the internal glass to settle, then fires the next shot.</li>
-              <li>This repeats until all 12 focal slices are captured all the way to infinity!</li>
+              <li>The script initializes <code>FA.Create</code> &amp; <code>InitializeAdjustmentSystem</code>, forces <code>set_mf(1)</code>, locks exposure (Tv/Av), and captures your close foreground.</li>
+              <li>On each step, it drives the EF-M lens outward via <code>EFLensCom.MoveFocus</code> with <strong>+40% progressive step growth</strong>, displaying live motor step position and Canon focus distance (e.g. <code>25cm &rarr; 60cm &rarr; 1.8m &rarr; INF</code>) on screen.</li>
+              <li>As soon as Canon reports optical infinity (<code>81m+</code>) or the motor hits the infinity stop, it stops early so no duplicate frames are wasted, and finishes with a guaranteed <strong>True Infinity</strong> frame via <code>EFLensCom.FocusSearchFar</code>!</li>
             </ul>
           </li>
         </ol>
